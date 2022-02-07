@@ -13,5 +13,5 @@ diesel = { version = "1.0.0", features = ["postgres", "r2d2"] }
 r2d2-diesel = "1.0"
 r2d2 = "0.8"
 tokio = { version = "1.4.0", features = ["macros", "rt-multi-thread", "time"] }
-md-5 = "0.10.0"
+sha-1 = "0.10.0"
 rand = "0.8.4"
