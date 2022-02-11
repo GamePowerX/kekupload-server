@@ -36,7 +36,7 @@ You can work on your forked repository like you would on any other repository. I
 
 ## Opening pull requests
 
-If youre finished implementing a feature and are confident sharing this code with the rest of the world you can click "Contribute" and select "Open pull request". This will create a new pull request in the main repository. The owners may look at your code and if its worth merging they will accept this pull request.
+If you're finished implementing a feature and are confident sharing this code with the rest of the world you can click "Contribute" and select "Open pull request". This will create a new pull request in the main repository. The owners may look at your code and if its worth merging they will accept this pull request.
 
 <br>
 
