@@ -2,3 +2,6 @@ target/
 .env
 tmp/
 upload/
+migrations/
+Cargo.lock
+.vscode/
