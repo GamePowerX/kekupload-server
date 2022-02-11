@@ -13,6 +13,8 @@ use std::collections::HashMap;
 use std::sync::{Mutex};
 
 use dotenv::dotenv;
+use random::random_b64;
+use rocket::response;
 use std::env;
 
 use rocket::config::LogLevel;
@@ -20,6 +22,9 @@ use rocket::State;
 use rocket::http::Status;
 use rocket::data::{Data, ToByteUnit, Limits, ByteUnit};
 use rocket::response::status;
+use rocket::fs::NamedFile;
+use rocket::response::Responder;
+use rocket::{Request, Response};
 
 use sha1::{Sha1, Digest};
 
@@ -105,9 +110,11 @@ async fn finish(id: String, hash: String, state: &State<UploadState>) -> status:
             fs::rename(file_path, state.upload.clone() + &file_hash)
                 .expect("File rename error!");
 
+            let nid = random_b64(6);
+
             // TODO: postgre insert with all necesary data
             file::File {
-                id: id.clone(), 
+                id: nid.clone(), 
                 ext: entry.ext.clone(), 
                 hash: file_hash
             }.create(
@@ -118,7 +125,7 @@ async fn finish(id: String, hash: String, state: &State<UploadState>) -> status:
 
             map.remove(&id);
 
-            return status::Custom(Status::Ok, id);
+            return status::Custom(Status::Ok, nid);
         } else {
             map.remove(&id);
 
@@ -131,12 +138,24 @@ async fn finish(id: String, hash: String, state: &State<UploadState>) -> status:
     }
 }
 
+// #[derive(Debug, Clone, PartialEq)]
+// pub struct Attachment<R>(pub Status, pub R, pub String);
+
+// // Sets the status code of the response and then delegates the remainder of the
+// impl<'r, 'o: 'r, R: Responder<'r, 'o>> Responder<'r, 'o> for Attachment<R> {
+//     fn respond_to(self, req: &'r Request<'_>) -> response::Result<'o> {
+//         Response::build_from(self.1.respond_to(req)?)
+//             .status(self.0)
+//             .ok()
+//     }
+// }
+
 
 
 #[get("/d/<id>")]
-async fn download(id: String, state: &State<UploadState>) -> io::Result<&'static str> {
+async fn download(id: String, state: &State<UploadState>) /*-> Attachment<String>*/ {
     // TODO: postgre select
-    Ok("NOT_IMPLEMENTED")
+    //NamedFile::open(Path::new("static/").join(file)).await.ok()
 }
 
 #[get("/e/<id>")]
