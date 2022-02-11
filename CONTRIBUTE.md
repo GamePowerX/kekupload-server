@@ -1,12 +1,12 @@
 # Contributing
 
-Since this is an opensource project you are allowed to contribute.
+Since this is an opensource project, you are allowed to contribute.
 
 <br>
 
 ## Forking the repository
 
-Click the "fork" button and chose where to fork the repository
+Click the "fork" button and chose where to fork the repository.
 
 <br>
 
