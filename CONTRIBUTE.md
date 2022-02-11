@@ -11,8 +11,9 @@ Click the "fork" button and chose where to fork the repository
 <br>
 
 <img src="assets/fork.png">
-<br>
+
 &emsp;&emsp;&emsp;&ensp;↓
+<br>
 <img src="assets/fork_select.png">
 
 <hr>
@@ -25,7 +26,7 @@ You can work on your forked repository like you would on any other repository. I
 <br>
 
 <img src="assets/fetch_upstream.png">
-<br>
+
 &emsp;&emsp;&emsp;&emsp;&ensp;↓
 <br>
 <img src="assets/fetch_and_merge.png">
@@ -40,7 +41,7 @@ If youre finished implementing a feature and are confident sharing this code wit
 <br>
 
 <img src="assets/contribute.png">
-<br>
+
 &emsp;&emsp;&emsp;&nbsp;↓
 <br>
 <img src="assets/open_pull_request.png">
