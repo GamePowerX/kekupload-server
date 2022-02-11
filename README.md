@@ -7,18 +7,20 @@
 4. Embeds
 
 <hr>
+<br>
 
 ## Can i use this bullshit?
 Well yeah its open source dumbass.
 
 <hr>
+<br>
 
 ## How do i use this?
 
 ### Prerequirements
 
 - Rust Nightly <br>
-You need [rustup](https://rustup.rs/) to use this.
+You need [rustup](https://rustup.rs/) to run this.
 
 ```sh
 rustup default nightly
@@ -38,7 +40,8 @@ cargo build --release
 
 The executable will be located at `target/release/uploadserver`
 
+<hr>
 <br>
 
-### Contribute
+## Contributing
 More information [here](https://github.com/KekOnTheWorld/uploadserver/blob/main/CONTRIBUTE.md).
