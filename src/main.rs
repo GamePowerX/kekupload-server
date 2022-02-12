@@ -4,16 +4,18 @@
 extern crate diesel;
 extern crate dotenv;
 
-
 use std::fs::File;
 use std::fs;
 use std::io;
 use std::io::prelude::*;
 use std::collections::HashMap;
+use std::path::Path;
 use std::sync::{Mutex};
 
 use dotenv::dotenv;
 use random::random_b64;
+use rocket::http::ContentType;
+use rocket::http::Header;
 use rocket::response;
 use std::env;
 
@@ -49,12 +51,32 @@ struct UploadEntry {
     hasher: Sha1
 }
 
+#[derive(Debug)]
+pub struct Advanced<R>(pub Option<String>, pub Option<NamedFile>, pub R);
+
+impl<'r, 'o: 'r, 'a, R: Responder<'r, 'o>> Responder<'r, 'o> for Advanced<R> {
+    fn respond_to(self, req: &'r Request<'_>) -> response::Result<'o> {
+        let mut b;
+
+        if let Some(nf) = self.1 {
+            b = Response::build_from(nf.respond_to(req)?);
+        } else {
+            b = Response::build_from(self.2.respond_to(req)?);
+        }
+
+        if let Some(f) = self.0 {
+            b.header(Header::new("Content-Disposition", "attachment; filename=\"".to_owned() + f.as_str() + "\""));
+        }
+
+        return b.ok();
+    }
+}
 
 //----- START OF ROUTE CODE -----
 
 #[get("/")]
-fn index() -> &'static str {
-    "KekUpload api made by KekOnTheWorld!"
+fn index() -> (ContentType, &'static str) {
+    (ContentType::HTML, "KekUpload api made by KekOnTheWorld! <a href='https://github.com/KekOnTheWorld/uploadserver/wiki'>Docs</a>")
 }
 
 #[post("/c/<ext>")]
@@ -112,7 +134,6 @@ async fn finish(id: String, hash: String, state: &State<UploadState>) -> status:
 
             let nid = random_b64(6);
 
-            // TODO: postgre insert with all necesary data
             file::File {
                 id: nid.clone(), 
                 ext: entry.ext.clone(), 
@@ -138,24 +159,23 @@ async fn finish(id: String, hash: String, state: &State<UploadState>) -> status:
     }
 }
 
-// #[derive(Debug, Clone, PartialEq)]
-// pub struct Attachment<R>(pub Status, pub R, pub String);
-
-// // Sets the status code of the response and then delegates the remainder of the
-// impl<'r, 'o: 'r, R: Responder<'r, 'o>> Responder<'r, 'o> for Attachment<R> {
-//     fn respond_to(self, req: &'r Request<'_>) -> response::Result<'o> {
-//         Response::build_from(self.1.respond_to(req)?)
-//             .status(self.0)
-//             .ok()
-//     }
-// }
-
-
-
 #[get("/d/<id>")]
-async fn download(id: String, state: &State<UploadState>) /*-> Attachment<String>*/ {
-    // TODO: postgre select
-    //NamedFile::open(Path::new("static/").join(file)).await.ok()
+async fn download(id: String, state: &State<UploadState>) -> Advanced<String> {
+    let hash;
+    let ext;
+
+    if let Some(entry) = file::File::find(id, &state.datapool.get().expect("Error while connecting to database!")).first() {
+        hash = entry.hash.clone();
+        ext = entry.ext.clone();
+    } else {
+        return Advanced(None, None, "INVALID_FILE_ID".to_owned());
+    }
+
+    let filename = hash.clone() + "." + ext.as_str();
+
+    let nf = NamedFile::open(Path::new("upload/").join(hash)).await.ok();
+
+    return Advanced(Some(filename), nf, "Kekw".to_owned());
 }
 
 #[get("/e/<id>")]
