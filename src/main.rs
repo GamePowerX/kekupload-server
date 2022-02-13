@@ -15,6 +15,7 @@ use std::sync::{Mutex};
 
 use dotenv::dotenv;
 use random::random_b64;
+use rocket::serde::__private::de::Content;
 use std::env;
 
 use rocket::config::LogLevel;
@@ -198,9 +199,25 @@ async fn download(id: String, state: &State<UploadState>) -> Advanced<String> {
 }
 
 #[get("/e/<id>")]
-async fn embed(id: String, state: &State<UploadState>) -> io::Result<&'static str> {
-    // TODO: postgre select
-    Ok("NOT_IMPLEMENTED")
+async fn embed(id: String, state: &State<UploadState>) -> status::Custom<(ContentType, String)> {
+    if let Some(entry) = file::File::find(id, &state.datapool.get().expect("Error while connecting to database!")).first() {
+        let filename = entry.hash.clone() + "." + entry.ext.as_str();
+
+        return status::Custom(Status::Ok, (ContentType::HTML, "
+<meta charset='UTF-8'>
+<meta property='og:type' content='website'>
+<meta name='og:title' content='".to_owned() + filename.as_str() + "'>
+<meta name='og:description' content='This file was uploaded to KekUpload'>
+<meta name='description' content='This file was uploaded to KekUpload'>
+<meta name='theme-color' content='#fa2d23'>
+<meta property='og:url' content='https://u.kotw.dev/d/" + entry.id.as_str() + "'>
+<meta name='og:image' content='https://u.kotw.dev/d/" + entry.id.as_str() + "'>
+<meta property='twitter:card' content='summary_large_image'>
+<script>window.location = 'https://u.kotw.dev/d/" + entry.id.as_str() + "';</script>
+        "));
+    } else {
+        return status::Custom(Status::BadRequest, (ContentType::Text, "INVALID_FILE_ID".to_owned()));
+    }
 }
 
 //----- END OF ROUTE CODE -----
