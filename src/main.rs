@@ -83,7 +83,11 @@ fn index() -> (ContentType, &'static str) {
 }
 
 #[post("/c/<ext>")]
-fn create(ext: String, state: &State<UploadState>) -> String {
+fn create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
+    if ext.len() > 6 {
+        return status::Custom(Status::BadRequest, "EXT_TOO_LONG".to_owned());
+    }
+
     let map = &mut state.map.lock().unwrap();
 
     let id = random::random_b64(64);
@@ -96,11 +100,11 @@ fn create(ext: String, state: &State<UploadState>) -> String {
 
     map.insert(id.clone(), entry);
     
-    return id;
+    return status::Custom(Status::Ok, id);
 }
 
 #[post("/u/<id>/<hash>", data = "<data>")]
-async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadState>) -> io::Result<&'static str> {
+async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadState>) -> io::Result<status::Custom<&'static str>> {
     let bytes = data.open(state.chunk_size).into_bytes().await?.into_inner();
 
     let map = &mut state.map.lock().unwrap();
@@ -110,7 +114,7 @@ async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadSt
         let chunk_hash = hex::encode(sh.finalize());
 
         if !chunk_hash.eq(&hash) {
-            return Ok("INVALID_HASH");
+            return Ok(status::Custom(Status::BadRequest, "INVALID_HASH"));
         }
 
         let file = &mut entry.file;
@@ -118,21 +122,21 @@ async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadSt
         
         file.write(&bytes).expect("File write error!");
         hasher.update(&bytes);
-        return Ok("OK");
+        return Ok(status::Custom(Status::Ok, "OK"));
     } else {
-        return Ok("INVALID_ID");
+        return Ok(status::Custom(Status::BadRequest, "INVALID_ID"));
     }
 }
 
 #[post("/r/<id>")]
-async fn remove(id: String, state: &State<UploadState>) -> &'static str {
+async fn remove(id: String, state: &State<UploadState>) -> status::Custom<&'static str> {
     let map = &mut state.map.lock().unwrap();
     let file_path = state.tmp.clone() + &id;
     if fs::remove_file(file_path).is_ok() {
         map.remove(&id);
-        return "OK";
+        return status::Custom(Status::Ok, "OK");
     } else {
-        return "INVALID_ID";
+        return status::Custom(Status::BadRequest, "INVALID_ID");
     }
 }
 
