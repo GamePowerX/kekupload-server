@@ -76,7 +76,7 @@ impl<'r, 'o: 'r, 'a, R: Responder<'r, 'o>> Responder<'r, 'o> for Advanced<R> {
 
 #[get("/")]
 fn index() -> (ContentType, &'static str) {
-    (ContentType::HTML, "KekUpload api made by KekOnTheWorld! <a href='https://github.com/KekOnTheWorld/uploadserver/wiki'>Docs</a>")
+    (ContentType::HTML, "KekUpload api made by KekOnTheWorld! <a href='https://github.com/KekOnTheWorld/uploadserver/wiki/API-Documentation'>Docs</a>")
 }
 
 #[post("/c/<ext>")]
