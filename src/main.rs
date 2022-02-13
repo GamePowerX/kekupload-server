@@ -121,6 +121,18 @@ async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadSt
     }
 }
 
+#[post("/r/<id>")]
+async fn remove(id: String, state: &State<UploadState>) -> &'static str {
+    let map = &mut state.map.lock().unwrap();
+    let file_path = state.tmp.clone() + &id;
+    if fs::remove_file(file_path).is_ok() {
+        map.remove(&id);
+        return "OK";
+    } else {
+        return "INVALID_ID";
+    }
+}
+
 #[post("/f/<id>/<hash>")]
 async fn finish(id: String, hash: String, state: &State<UploadState>) -> status::Custom<String> {
     let map = &mut state.map.lock().unwrap();
@@ -235,6 +247,7 @@ fn rocket() -> _ {
             upload,
             finish,
             embed,
+            remove,
             download
         ])
 }
