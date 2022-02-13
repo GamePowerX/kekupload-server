@@ -241,10 +241,9 @@ fn rocket() -> _ {
         allowed_origins: AllowedOrigins::all(),
         allow_credentials: true,
         ..Default::default()
-    };
+    }.to_cors().unwrap();
 
     rocket::custom(figment)
-        .manage(cors)
         .manage(UploadState { 
             map: Mutex::new(HashMap::new()),
             tmp: tmp,
@@ -252,6 +251,7 @@ fn rocket() -> _ {
             chunk_size: 2.mebibytes(),
             datapool: datapool
         })
+        .attach(cors)
         .mount(base, routes![
             index, 
             create, 
