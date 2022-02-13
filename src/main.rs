@@ -1,4 +1,5 @@
-#[macro_use] extern crate rocket;
+#[macro_use] 
+extern crate rocket;
 
 #[macro_use]
 extern crate diesel;
@@ -14,9 +15,6 @@ use std::sync::{Mutex};
 
 use dotenv::dotenv;
 use random::random_b64;
-use rocket::http::ContentType;
-use rocket::http::Header;
-use rocket::response;
 use std::env;
 
 use rocket::config::LogLevel;
@@ -27,6 +25,11 @@ use rocket::response::status;
 use rocket::fs::NamedFile;
 use rocket::response::Responder;
 use rocket::{Request, Response};
+use rocket::http::ContentType;
+use rocket::http::Header;
+use rocket::response;
+
+use rocket_cors::AllowedOrigins;
 
 use sha1::{Sha1, Digest};
 
@@ -233,7 +236,15 @@ fn rocket() -> _ {
 
     println!("http://localhost:{}{}", port, base);
 
+
+    let cors = rocket_cors::CorsOptions {
+        allowed_origins: AllowedOrigins::all(),
+        allow_credentials: true,
+        ..Default::default()
+    };
+
     rocket::custom(figment)
+        .manage(cors)
         .manage(UploadState { 
             map: Mutex::new(HashMap::new()),
             tmp: tmp,
