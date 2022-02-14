@@ -28,6 +28,7 @@ This route is used to create a new upload stream for uploading to.
 <br>
 
 **Parameters:**<br>
+
 | Name         | Description     | Type |
 | -------------- | ----------- | ------------ |
 | \<ext> | The file extension      | string (0 < len < 7)        |
@@ -41,9 +42,9 @@ Example:
 
 `POST http://localhost:6942/c/png` → `85bvoJGgos5pD5p4yH3hGV-0GnpxsM6Kr7fRJwf-GGcC-xgfww6XHqFNVUwYH_i1`
 
-<br>
-
 </a>
+
+<br>
 
 <hr>
 
@@ -74,9 +75,9 @@ Example:
 
 `POST http://localhost:6942/u/85bvoJGgos5pD5p4yH3hGV-0GnpxsM6Kr7fRJwf-GGcC-xgfww6XHqFNVUwYH_i1/539a0aaa37ae283644be2c1b47b8a3e48d8525e0 'Test somes'` → `OK`
 
-<br>
-
 </a>
+
+<br>
 
 <hr>
 
@@ -100,7 +101,10 @@ If the request succeeded you will receive an 'OK'.
 Example:
 
 `POST http://localhost:6942/r/85bvoJGgos5pD5p4yH3hGV-0GnpxsM6Kr7fRJwf-GGcC-xgfww6XHqFNVUwYH_i1` → `OK`
+
 </a>
+
+<br>
 
 <hr>
 
@@ -128,6 +132,8 @@ Example:
 
 </a>
 
+<br>
+
 <hr>
 
 <a name="route_download">
@@ -152,6 +158,8 @@ Example:
 `GET http://localhost:6942/d/hG5D_q` → `Test somes`
 
 </a>
+
+<br>
 
 <hr>
 
