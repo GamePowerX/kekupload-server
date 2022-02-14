@@ -29,7 +29,7 @@ This route is used to create a new upload stream for uploading to.
 
 **Parameters:**<br>
 | Name         | Description     | Type |
-|--------------|-----------|------------|
+| -------------- | ----------- | ------------ |
 | \<ext> | The file extension      | string (0 < len < 7)        |
 
 <br>
