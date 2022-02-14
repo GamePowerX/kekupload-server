@@ -1,0 +1,5 @@
+CREATE TABLE files (
+  id CHAR(6) PRIMARY KEY,
+  ext VARCHAR(6) NOT NULL,
+  hash CHAR(40) NOT NULL
+);
