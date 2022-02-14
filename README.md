@@ -1,21 +1,20 @@
 # Upload Server used by KekUpload
 
+## License
+This project is licensed under the [Mit License](https://mit-license.org/)
+
+<hr>
+<br>
+
 ## Features
-1. Image compression (because i have shitty internet)
-2. Rest api
-3. Chunked uploading
-4. Embeds
+1. Rest api
+2. Chunked uploading
+3. Embeds
 
 <hr>
 <br>
 
-## Can i use this bullshit?
-Well yeah its open source dumbass.
-
-<hr>
-<br>
-
-## How do i use this?
+## Usage
 
 ### Prerequirements
 
@@ -39,6 +38,24 @@ cargo build --release
 ```
 
 The executable will be located at `target/release/uploadserver`
+
+<br>
+
+### Testing
+If you are developing and don't want to rebuild and run the client to release mode use
+```sh
+cargo run
+```
+<hr>
+<br>
+
+## Goals
+
+- Image compression
+
+<br>
+
+If you have aditional ideas how to make this tool better please create a feature request in the issues tab.
 
 <hr>
 <br>
