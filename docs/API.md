@@ -5,12 +5,12 @@ This explains how you can use this api.
 <details>
 <summary>&emsp;Routes</summary>  
 
-&emsp;&emsp; [Create upload stream](#route_create)<br>
-&emsp;&emsp; [Upload chunk](#route_upload)<br>
-&emsp;&emsp; [Finalize file](#route_finish)<br>
-&emsp;&emsp; [Remove file](#route_remove)<br>
-&emsp;&emsp; [Download file](#route_download)<br>
-&emsp;&emsp; [Embed file](#route_embed)<br>
+&emsp;&emsp; [Create upload stream](https://kotw.dev/uploadserver/docs/API#route_create)<br>
+&emsp;&emsp; [Upload chunk](https://kotw.dev/uploadserver/docs/API#route_upload)<br>
+&emsp;&emsp; [Finalize file](https://kotw.dev/uploadserver/docs/API#route_finish)<br>
+&emsp;&emsp; [Remove file](https://kotw.dev/uploadserver/docs/API#route_remove)<br>
+&emsp;&emsp; [Download file](https://kotw.dev/uploadserver/docs/API#route_download)<br>
+&emsp;&emsp; [Embed file](https://kotw.dev/uploadserver/docs/API#route_embed)<br>
 </details>
 
 <br>
