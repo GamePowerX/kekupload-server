@@ -1,4 +1,4 @@
-# Upload Server used by KekUpload
+# UploadServer
 
 A backend providing a HTTP REST like interface for uploading files written in [rust](https://www.rust-lang.org/).
 
@@ -14,6 +14,16 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 1. Rest api
 2. Chunked uploading
 3. Embeds
+
+<hr>
+<br>
+
+## Clients
+- [UploadClient (svelte)](https://github.com/KekOnTheWorld/uploadclient)
+
+<br>
+
+You have created your own client for [UploadServer](https://github.com/KekOnTheWorld/uploadserver)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
 
 <hr>
 <br>
