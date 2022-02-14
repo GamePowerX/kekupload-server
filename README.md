@@ -4,6 +4,10 @@ A backend providing a HTTP REST like interface for uploading files written in [r
 
 <br>
 
+[API Documentation](https://kotw.dev/docs/API)
+
+<br>
+
 ## License
 This project is licensed under the [Mit License](https://mit-license.org/)
 
