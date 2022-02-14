@@ -196,7 +196,7 @@ async fn download(id: String, state: &State<UploadState>) -> Advanced<String> {
 
     let filename = hash.clone() + "." + ext.as_str();
 
-    let nf = NamedFile::open(Path::new(state.upload).join(hash)).await.ok();
+    let nf = NamedFile::open(Path::new(state.upload.as_str()).join(hash)).await.ok();
 
     return Advanced(Some(filename), nf, "Kekw".to_owned());
 }
