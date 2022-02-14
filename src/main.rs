@@ -15,13 +15,12 @@ use std::sync::{Mutex};
 
 use dotenv::dotenv;
 use random::random_b64;
-use rocket::serde::__private::de::Content;
 use std::env;
 
 use rocket::config::LogLevel;
 use rocket::State;
 use rocket::http::Status;
-use rocket::data::{Data, ToByteUnit, Limits, ByteUnit};
+use rocket::data::{Data, Limits, ByteUnit};
 use rocket::response::status;
 use rocket::fs::NamedFile;
 use rocket::response::Responder;
@@ -47,6 +46,10 @@ struct UploadState {
     upload: String,
     chunk_size: ByteUnit,
     datapool: database::PgPool,
+
+    embed_description: String,
+    embed_color: String,
+    download_url: String
 }
 
 struct UploadEntry {
@@ -203,17 +206,38 @@ async fn embed(id: String, state: &State<UploadState>) -> status::Custom<(Conten
     if let Some(entry) = file::File::find(id, &state.datapool.get().expect("Error while connecting to database!")).first() {
         let filename = entry.hash.clone() + "." + entry.ext.as_str();
 
+        let description = state.embed_description.as_str();
+        let color = state.embed_color.as_str();
+
+        let download_url = state.download_url.as_str();
+        let id = entry.id.as_str();
+
         return status::Custom(Status::Ok, (ContentType::HTML, "
+<!DOCTYPE html>
+<style>*{color:#fff;background-color:black;}</style>
+
 <meta charset='UTF-8'>
+
 <meta property='og:type' content='website'>
-<meta name='og:title' content='".to_owned() + filename.as_str() + "'>
-<meta name='og:description' content='This file was uploaded to KekUpload'>
-<meta name='description' content='This file was uploaded to KekUpload'>
-<meta name='theme-color' content='#fa2d23'>
-<meta property='og:url' content='https://u.kotw.dev/d/" + entry.id.as_str() + "'>
-<meta name='og:image' content='https://u.kotw.dev/d/" + entry.id.as_str() + "'>
 <meta property='twitter:card' content='summary_large_image'>
-<script>window.location = 'https://u.kotw.dev/d/" + entry.id.as_str() + "';</script>
+
+<meta name='title' content='".to_owned() + filename.as_str() + "'>
+<title>" + filename.as_str() + "</title>
+<meta property='og:title' content='" + filename.as_str() + "'>
+<meta property='twitter:title' content='" + filename.as_str() + "'>
+
+<meta name='theme-color' content='" + color + "'>
+
+<meta name='description' content='" + description + "'>
+<meta property='og:description' content='" + description + "'>
+<meta property='twitter:description' content='" + description + "'>
+
+<meta property='og:image' content='" + download_url + id + "'>
+<meta property='twitter:image' content='" + download_url + id + "'>
+
+<script>window.location = '" + download_url + id + "';</script>
+
+<a href='" + download_url + id + "'>Download</a>
         "));
     } else {
         return status::Custom(Status::BadRequest, (ContentType::Text, "INVALID_FILE_ID".to_owned()));
@@ -232,19 +256,43 @@ fn clean_tmp(tmp: String) {
 fn rocket() -> _ {
     dotenv().ok();
 
-    let base = env::var("base").unwrap_or("/".to_owned());
-    let tmp = env::var("tmp").unwrap_or("tmp/".to_owned());
-    let upload = env::var("upload").unwrap_or("upload/".to_owned());
+    let base = env::var("base")
+        .unwrap_or("/".to_owned());
+
+    let tmp = env::var("tmp")
+        .unwrap_or("tmp/".to_owned());
+
+    let upload = env::var("upload")
+        .unwrap_or("upload/".to_owned());
+
+    let chunk_size = ByteUnit::Kibibyte(env::var("chunk_size")
+        .unwrap_or("2048".to_owned()).parse().unwrap_or(2048));
+
+    let embed_description = env::var("embed_description")
+        .unwrap_or("No description availlable".to_owned());
+
+    let embed_color = env::var("embed_color")
+        .unwrap_or("#ffffff".to_owned());
+
+    let download_url = env::var("download_url")
+        .unwrap_or("http://example.com/".to_owned());
 
     let port = env::var("port")
         .unwrap_or("8000".to_owned())
         .parse()
         .unwrap_or(8000);
 
+
     let limits = Limits::default()
-        .limit("bytes", 2.mebibytes());
+        .limit("bytes", chunk_size);
 
     let datapool = database::establish_connection(env::var("DATABASE_URL").expect("Database url not set!"));
+
+    let cors = rocket_cors::CorsOptions {
+        allowed_origins: AllowedOrigins::all(),
+        allow_credentials: true,
+        ..Default::default()
+    }.to_cors().unwrap();
 
     clean_tmp(tmp.clone());
 
@@ -257,20 +305,18 @@ fn rocket() -> _ {
 
     println!("http://localhost:{}{}", port, base);
 
-
-    let cors = rocket_cors::CorsOptions {
-        allowed_origins: AllowedOrigins::all(),
-        allow_credentials: true,
-        ..Default::default()
-    }.to_cors().unwrap();
-
     rocket::custom(figment)
         .manage(UploadState { 
             map: Mutex::new(HashMap::new()),
-            tmp: tmp,
-            upload: upload,
-            chunk_size: 2.mebibytes(),
-            datapool: datapool
+            
+            tmp,
+            upload,
+            chunk_size,
+            datapool,
+
+            embed_description,
+            embed_color,
+            download_url
         })
         .attach(cors)
         .mount(base, routes![
