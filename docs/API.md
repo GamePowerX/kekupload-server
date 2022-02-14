@@ -72,6 +72,7 @@ This route is used to upload a chunk of data to the upload stream.
 <br>
 
 **Parameters:**<br>
+
 | Name         | Description     | Type |
 |--------------|-----------|------------|
 | \<id> | The upload stream id      | string (len == 64, result of [create](#route_create))        |
@@ -105,6 +106,7 @@ This route is used to close an upload stream. This will delete the tmp file that
 <br>
 
 **Parameters:**<br>
+
 | Name         | Description     | Type |
 |--------------|-----------|------------|
 | \<id> | The upload stream id      | string (len == 64, result of [create](#route_create))        |
@@ -132,6 +134,7 @@ This route is used to finalize an upload stream.
 <br>
 
 **Parameters:**<br>
+
 | Name         | Description     | Type |
 |--------------|-----------|------------|
 | \<id> | The upload stream id      | (len == 64, result of [create](#route_create))        |
@@ -160,6 +163,7 @@ This route is used to download an uploaded file. The id is the result of [finish
 <br>
 
 **Parameters:**<br>
+
 | Name         | Description     | Type |
 |--------------|-----------|------------|
 | \<id> | The file id      | string (len == 6)        |
@@ -187,6 +191,7 @@ This route is used to embed an uploaded file on discord or other platforms that 
 <br>
 
 **Parameters:**<br>
+
 | Name         | Description     | Type |
 |--------------|-----------|------------|
 | \<id> | The file id      | string (len == 6)        |
