@@ -27,7 +27,7 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 
 <br>
 
-You have created your own client for [UploadServer](https://github.com/KekOnTheWorld/uploadserver)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+You have created your own client for [UploadServer](https://kotw.dev/uploadserver)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
 
 <hr>
 <br>
@@ -79,4 +79,4 @@ If you have aditional ideas how to make this tool better please create a feature
 <br>
 
 ## Contributing
-More information [here](https://github.com/KekOnTheWorld/uploadserver/blob/main/CONTRIBUTE.md).
+More information [here](https://kotw.dev/uploadserver/CONTRIBUTE.md).
