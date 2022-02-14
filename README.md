@@ -1,5 +1,9 @@
 # Upload Server used by KekUpload
 
+A backend providing a HTTP REST like interface for uploading files written in [rust](https://www.rust-lang.org/)
+
+<br>
+
 ## License
 This project is licensed under the [Mit License](https://mit-license.org/)
 
