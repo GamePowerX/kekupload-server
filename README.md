@@ -4,7 +4,7 @@ A backend providing a HTTP REST like interface for uploading files written in [r
 
 <br>
 
-[API Documentation](https://kotw.dev/docs/API)
+[API Documentation](https://kotw.dev/uploadserver/docs/API)
 
 <br>
 
