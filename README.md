@@ -4,7 +4,7 @@ A backend providing a HTTP REST like interface for uploading files written in [r
 
 <br>
 
-[API Documentation](https://kotw.dev/uploadserver/docs/API)
+[API Documentation](https://oss.kotw.dev/uploadserver/docs/API)
 
 <br>
 
@@ -23,11 +23,11 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 <br>
 
 ## Clients
-- [UploadClient (svelte)](https://github.com/KekOnTheWorld/uploadclient)
+- [UploadClient (svelte)](https://github.com/KotwOSS/uploadclient)
 
 <br>
 
-You have created your own client for [UploadServer](https://kotw.dev/uploadserver)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+You have created your own client for [UploadServer](https://oss.kotw.dev/uploadserver)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
 
 <hr>
 <br>
