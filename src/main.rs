@@ -11,6 +11,7 @@ use std::io;
 use std::io::prelude::*;
 use std::collections::HashMap;
 use std::path::Path;
+use std::path::PathBuf;
 use std::sync::{Mutex};
 
 use dotenv::dotenv;
@@ -42,9 +43,13 @@ use models::file;
 
 struct UploadState {
     map: Mutex<HashMap<String, UploadEntry>>,
-    tmp: String,
-    upload: String,
+
+    tmp_dir: String,
+    upload_dir: String,
+    web_dir: String,
+
     chunk_size: ByteUnit,
+
     datapool: database::PgPool,
 
     embed_description: String,
@@ -79,15 +84,15 @@ impl<'r, 'o: 'r, 'a, R: Responder<'r, 'o>> Responder<'r, 'o> for Advanced<R> {
     }
 }
 
-//----- START OF ROUTE CODE -----
+//----- START OF API CODE -----
 
 #[get("/")]
-fn index() -> (ContentType, &'static str) {
-    (ContentType::HTML, "KekUpload api made by KekOnTheWorld! <a href='https://github.com/KekOnTheWorld/uploadserver/wiki/API-Documentation'>Docs</a>")
+fn api_index() -> (ContentType, &'static str) {
+    (ContentType::HTML, "UploadServer api made by KekOnTheWorld! <a href='https://oss.kotw.dev/uploadserver/docs/API'>Docs</a>")
 }
 
 #[post("/c/<ext>")]
-fn create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
+fn api_create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
     if ext.len() > 6 {
         return status::Custom(Status::BadRequest, "EXT_TOO_LONG".to_owned());
     }
@@ -95,7 +100,7 @@ fn create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
     let map = &mut state.map.lock().unwrap();
 
     let id = random::random_b64(64);
-    let file = File::create(state.tmp.clone() + &id).unwrap();
+    let file = File::create(state.tmp_dir.clone() + &id).unwrap();
     let hasher = Sha1::new();
 
     let entry = UploadEntry { file: file, ext, hasher };
@@ -108,7 +113,7 @@ fn create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
 }
 
 #[post("/u/<id>/<hash>", data = "<data>")]
-async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadState>) -> io::Result<status::Custom<&'static str>> {
+async fn api_upload(data: Data<'_>, id: String, hash: String, state: &State<UploadState>) -> io::Result<status::Custom<&'static str>> {
     let bytes = data.open(state.chunk_size).into_bytes().await?.into_inner();
 
     let map = &mut state.map.lock().unwrap();
@@ -133,9 +138,9 @@ async fn upload(data: Data<'_>, id: String, hash: String, state: &State<UploadSt
 }
 
 #[post("/r/<id>")]
-async fn remove(id: String, state: &State<UploadState>) -> status::Custom<&'static str> {
+async fn api_remove(id: String, state: &State<UploadState>) -> status::Custom<&'static str> {
     let map = &mut state.map.lock().unwrap();
-    let file_path = state.tmp.clone() + &id;
+    let file_path = state.tmp_dir.clone() + &id;
     if fs::remove_file(file_path).is_ok() {
         map.remove(&id);
         return status::Custom(Status::Ok, "OK");
@@ -145,14 +150,14 @@ async fn remove(id: String, state: &State<UploadState>) -> status::Custom<&'stat
 }
 
 #[post("/f/<id>/<hash>")]
-async fn finish(id: String, hash: String, state: &State<UploadState>) -> status::Custom<String> {
+async fn api_finish(id: String, hash: String, state: &State<UploadState>) -> status::Custom<String> {
     let map = &mut state.map.lock().unwrap();
     if let Some(entry) = map.get_mut(&id) {
         let file_hash = hex::encode(entry.hasher.clone().finalize());
-        let file_path = state.tmp.clone() + &id;
+        let file_path = state.tmp_dir.clone() + &id;
 
         if file_hash.eq(&hash) {
-            fs::rename(file_path, state.upload.clone() + &file_hash)
+            fs::rename(file_path, state.upload_dir.clone() + &file_hash)
                 .expect("File rename error!");
 
             let nid = random_b64(6);
@@ -183,7 +188,7 @@ async fn finish(id: String, hash: String, state: &State<UploadState>) -> status:
 }
 
 #[get("/d/<id>")]
-async fn download(id: String, state: &State<UploadState>) -> Advanced<String> {
+async fn api_download(id: String, state: &State<UploadState>) -> Advanced<String> {
     let hash;
     let ext;
 
@@ -196,13 +201,13 @@ async fn download(id: String, state: &State<UploadState>) -> Advanced<String> {
 
     let filename = hash.clone() + "." + ext.as_str();
 
-    let nf = NamedFile::open(Path::new(state.upload.as_str()).join(hash)).await.ok();
+    let nf = NamedFile::open(Path::new(state.upload_dir.as_str()).join(hash)).await.ok();
 
     return Advanced(Some(filename), nf, "Kekw".to_owned());
 }
 
 #[get("/e/<id>")]
-async fn embed(id: String, state: &State<UploadState>) -> status::Custom<(ContentType, String)> {
+async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(ContentType, String)> {
     if let Some(entry) = file::File::find(id, &state.datapool.get().expect("Error while connecting to database!")).first() {
         let filename = entry.hash.clone() + "." + entry.ext.as_str();
 
@@ -244,7 +249,20 @@ async fn embed(id: String, state: &State<UploadState>) -> status::Custom<(Conten
     }
 }
 
-//----- END OF ROUTE CODE -----
+//----- END OF API CODE -----
+
+//----- START OF WEB CODE -----
+#[get("/")]
+async fn web_index(state: &State<UploadState>) -> Option<NamedFile> {
+    NamedFile::open(Path::new(state.web_dir.as_str()).join("index.html")).await.ok()
+}
+
+#[get("/<path..>")]
+async fn web_base(path: PathBuf, state: &State<UploadState>) -> Option<NamedFile> {
+    NamedFile::open(Path::new(state.web_dir.as_str()).join(path)).await.ok()
+}
+
+//----- END OF WEB CODE -----
 
 fn clean_tmp(tmp: String) {
     let dir = tmp.as_str();
@@ -256,14 +274,20 @@ fn clean_tmp(tmp: String) {
 fn rocket() -> _ {
     dotenv().ok();
 
-    let base = env::var("base")
+    let embed_route_base = env::var("embed_route_base")
         .unwrap_or("/".to_owned());
 
-    let tmp = env::var("tmp")
+    let api_base = env::var("api_base")
+        .unwrap_or("/api/".to_owned());
+
+    let tmp_dir = env::var("tmp_dir")
         .unwrap_or("tmp/".to_owned());
 
-    let upload = env::var("upload")
+    let upload_dir = env::var("upload_dir")
         .unwrap_or("upload/".to_owned());
+
+    let web_dir = env::var("web_dir")
+        .unwrap_or("web/".to_owned());
 
     let chunk_size = ByteUnit::Kibibyte(env::var("chunk_size")
         .unwrap_or("2048".to_owned()).parse().unwrap_or(2048));
@@ -294,7 +318,7 @@ fn rocket() -> _ {
         ..Default::default()
     }.to_cors().unwrap();
 
-    clean_tmp(tmp.clone());
+    clean_tmp(tmp_dir.clone());
 
     database::establish_connection(env::var("DATABASE_URL").expect("Missing dburl in .env"));
 
@@ -303,15 +327,16 @@ fn rocket() -> _ {
         .merge(("limits", limits))
         .merge(("port", port));
 
-    println!("http://localhost:{}{}", port, base);
+    println!("API: http://localhost:{}{}", port, api_base);
 
-    rocket::custom(figment)
+    let mut server = rocket::custom(figment)
         .manage(UploadState { 
             map: Mutex::new(HashMap::new()),
             
-            tmp,
-            upload,
+            tmp_dir,
+            upload_dir,
             chunk_size,
+            web_dir,
             datapool,
 
             embed_description,
@@ -319,13 +344,30 @@ fn rocket() -> _ {
             download_url
         })
         .attach(cors)
-        .mount(base, routes![
-            index, 
-            create, 
-            upload,
-            finish,
-            embed,
-            remove,
-            download
+        .mount(api_base, routes![
+            api_index, 
+            api_create, 
+            api_upload,
+            api_finish,
+            api_embed,
+            api_remove,
+            api_download
         ])
+        .mount(embed_route_base, routes![
+            api_embed
+        ]);
+
+    if env::var("web_host").is_ok() {
+        let web_base = env::var("web_base")
+            .unwrap_or("/".to_owned());
+
+        println!("Web: http://localhost:{}{}", port, web_base);
+
+        server = server.mount(web_base, routes![
+            web_index,
+            web_base
+        ]);
+    }
+
+    server
 }
