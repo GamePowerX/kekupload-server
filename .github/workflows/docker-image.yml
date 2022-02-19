@@ -25,7 +25,7 @@ jobs:
         # List of build-time variables
         #build-args: # optional
         # Builder instance
-        builder: builder # optional
+        #builder: builder # optional
         # List of external cache sources for buildx (e.g., user/app:cache, type=local,src=path/to/dir)
         #cache-from: # optional
         # List of cache export destinations for buildx (e.g., user/app:cache, type=local,dest=path/to/dir)
