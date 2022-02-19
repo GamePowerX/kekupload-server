@@ -61,7 +61,7 @@ jobs:
         # List of SSH agent socket or keys to expose to the build
         #ssh: # optional
         # List of tags
-        #tags: # optional
+        tags: craftingdragon007/uploadserver:latest # optional
         # Sets the target stage to build
         #target: # optional
         # Ulimit options (e.g., nofile=1024:1024)
