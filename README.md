@@ -79,4 +79,4 @@ If you have aditional ideas how to make this tool better please create a feature
 <br>
 
 ## Contributing
-More information [here](https://kotw.dev/uploadserver/CONTRIBUTE).
+More information [here](https://oss.kotw.dev/uploadserver/CONTRIBUTE).
