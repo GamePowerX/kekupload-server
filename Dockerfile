@@ -16,4 +16,4 @@ COPY --from=builder /app /app
 RUN apt update && apt install -y libpq-dev
 RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /mount
-CMD ["./configure.sh"]
+CMD ["../app/configure.sh"]
