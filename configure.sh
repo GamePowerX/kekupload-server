@@ -135,4 +135,4 @@ read download_route_base
 echo "download_route_base='$download_route_base'" >> $dotenv
 fi
 
-./target/release/uploadserver
+./uploadserver
