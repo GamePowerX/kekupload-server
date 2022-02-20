@@ -19,6 +19,7 @@ RUN apt install -y libpq-dev
 RUN apt install -y libmysqlclient-dev
 RUN apt install -y libmariadb-dev
 RUN apt install -y libsqlite3-dev
+RUN apt install -y git
 RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /app/
 CMD sh configure.sh
