@@ -1,6 +1,9 @@
 FROM rustlang/rust:nightly as builder
 WORKDIR /app
 COPY . .
+RUN chmod +x configure.sh
+RUN ./configure.sh
+
 RUN cargo build --release
 RUN cp ./target/release/uploadserver .
 RUN rm -rf ./target

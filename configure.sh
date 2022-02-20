@@ -1,3 +1,8 @@
+#!/usr/bin/bash
+
+# Utility for configuring uploadserver
+# Written by KekOnTheWorld
+
 cyan="\033[38;2;100;255;200m"
 yellow="\033[38;2;255;255;100m"
 orange="\033[38;2;249;150;2m"
