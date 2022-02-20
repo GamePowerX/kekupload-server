@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 # Utility for configuring uploadserver
 # Written by KekOnTheWorld
 
@@ -11,6 +9,9 @@ reset="\033[0m"
 
 dotenv=".env"
 
+if [ -f $dotenv ]; then
+    echo "Starting server..."
+else
 printf "" > $dotenv
 
 printf $cyan"\nWelcome to the uploadserver configure script.\n\n"$reset
@@ -132,3 +133,6 @@ printf $yellow"Please enter the download route (/): "$cyan
 read download_route_base
 
 echo "download_route_base='$download_route_base'" >> $dotenv
+fi
+
+./target/release/uploadserver
