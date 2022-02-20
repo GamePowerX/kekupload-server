@@ -86,14 +86,21 @@ impl<'r, 'o: 'r, 'a, R: Responder<'r, 'o>> Responder<'r, 'o> for Advanced<R> {
 
 //----- START OF API CODE -----
 
+#[catch(404)]
+fn api_not_found(_req: &Request) -> (ContentType, &'static str) {
+    (ContentType::HTML, "Route not found! <a href='https://oss.kotw.dev/uploadserver/docs/API'>Docs</a>")
+}
+
 #[get("/")]
 fn api_index() -> (ContentType, &'static str) {
     (ContentType::HTML, "UploadServer api made by KekOnTheWorld! <a href='https://oss.kotw.dev/uploadserver/docs/API'>Docs</a>")
 }
 
-#[post("/c/<ext>")]
-fn api_create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
-    if ext.len() > 6 {
+#[post("/c/<opt_ext>")]
+fn api_create(opt_ext: Option<String>, state: &State<UploadState>) -> status::Custom<String> {
+    let ext = opt_ext.unwrap_or("".to_owned());
+
+    if ext.len() > 10 {
         return status::Custom(Status::BadRequest, "EXT_TOO_LONG".to_owned());
     }
 
@@ -103,7 +110,7 @@ fn api_create(ext: String, state: &State<UploadState>) -> status::Custom<String>
     let file = File::create(state.tmp_dir.clone() + &id).unwrap();
     let hasher = Sha1::new();
 
-    let entry = UploadEntry { file: file, ext, hasher };
+    let entry = UploadEntry { file, ext, hasher };
 
     println!("Created stream with ID: {}", &id);
 
@@ -160,7 +167,7 @@ async fn api_finish(id: String, hash: String, state: &State<UploadState>) -> sta
             fs::rename(file_path, state.upload_dir.clone() + &file_hash)
                 .expect("File rename error!");
 
-            let nid = random_b64(6);
+            let nid = random_b64(7);
 
             file::File {
                 id: nid.clone(), 
@@ -199,17 +206,17 @@ async fn api_download(id: String, state: &State<UploadState>) -> Advanced<String
         return Advanced(None, None, "INVALID_FILE_ID".to_owned());
     }
 
-    let filename = hash.clone() + "." + ext.as_str();
+    let filename = get_filename(hash.clone(), ext);
 
     let nf = NamedFile::open(Path::new(state.upload_dir.as_str()).join(hash)).await.ok();
 
-    return Advanced(Some(filename), nf, "Kekw".to_owned());
+    return Advanced(Some(filename), nf, "FILE_DELETED".to_owned());
 }
 
 #[get("/e/<id>")]
 async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(ContentType, String)> {
     if let Some(entry) = file::File::find(id, &state.datapool.get().expect("Error while connecting to database!")).first() {
-        let filename = entry.hash.clone() + "." + entry.ext.as_str();
+        let filename = get_filename(entry.hash.clone(), entry.ext.clone());
 
         let description = state.embed_description.as_str();
         let color = state.embed_color.as_str();
@@ -249,7 +256,18 @@ async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(Co
     }
 }
 
+
+fn get_filename(hash: String, ext: String) -> String {
+    if ext.eq("none") {
+        return hash;
+    } else {
+        return hash + "." + ext.as_str();
+    }
+}
+
+
 //----- END OF API CODE -----
+
 
 //----- START OF WEB CODE -----
 #[get("/")]
@@ -275,6 +293,9 @@ fn rocket() -> _ {
     dotenv().ok();
 
     let embed_route_base = env::var("embed_route_base")
+        .unwrap_or("/".to_owned());
+
+    let download_route_base = env::var("download_route_base")
         .unwrap_or("/".to_owned());
 
     let api_base = env::var("api_base")
@@ -344,7 +365,7 @@ fn rocket() -> _ {
             download_url
         })
         .attach(cors)
-        .mount(api_base, routes![
+        .mount(api_base.clone(), routes![
             api_index, 
             api_create, 
             api_upload,
@@ -355,7 +376,11 @@ fn rocket() -> _ {
         ])
         .mount(embed_route_base, routes![
             api_embed
-        ]);
+        ])
+        .mount(download_route_base, routes![
+            api_download
+        ])
+        .register(api_base, catchers![api_not_found]);
 
     if env::var("web_host").is_ok() {
         let web_base = env::var("web_base")
