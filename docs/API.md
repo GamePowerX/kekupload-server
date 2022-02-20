@@ -32,7 +32,7 @@ This route is used to create a new upload stream for uploading to.
 
 | Name         | Description     | Type |
 | -------------- | ----------- | ------------ |
-| \<ext> | The file extension      | string (0 < len < 7)        |
+| \<ext> | The file extension      | string (0 < len < 11)        |
 
 <br>
 
@@ -151,7 +151,7 @@ This route is used to download an uploaded file. The id is the result of [finish
 
 | Name         | Description     | Type |
 |--------------|-----------|------------|
-| \<id> | The file id      | string (len == 6)        |
+| \<id> | The file id      | string (len == 7)        |
 
 <br>
 
@@ -179,7 +179,7 @@ This route is used to embed an uploaded file on discord or other platforms that 
 
 | Name         | Description     | Type |
 |--------------|-----------|------------|
-| \<id> | The file id      | string (len == 6)        |
+| \<id> | The file id      | string (len == 7)        |
 
 <br>
 
