@@ -16,5 +16,4 @@ RUN apt update && apt install -y libpq-dev
 RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /mount
 RUN mkdir ./upload
-RUN cp /app/default.env ./.env
 CMD ["../app/uploadserver"]
