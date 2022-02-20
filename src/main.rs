@@ -93,7 +93,7 @@ fn api_index() -> (ContentType, &'static str) {
 
 #[post("/c/<ext>")]
 fn api_create(ext: String, state: &State<UploadState>) -> status::Custom<String> {
-    if ext.len() > 6 {
+    if ext.len() > 10 {
         return status::Custom(Status::BadRequest, "EXT_TOO_LONG".to_owned());
     }
 
@@ -160,7 +160,7 @@ async fn api_finish(id: String, hash: String, state: &State<UploadState>) -> sta
             fs::rename(file_path, state.upload_dir.clone() + &file_hash)
                 .expect("File rename error!");
 
-            let nid = random_b64(6);
+            let nid = random_b64(7);
 
             file::File {
                 id: nid.clone(), 
