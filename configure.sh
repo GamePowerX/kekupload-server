@@ -4,7 +4,7 @@ orange="\033[38;2;249;150;2m"
 green="\033[38;2;100;255;100m"
 reset="\033[0m"
 
-dotenv="lel.env"
+dotenv=".env"
 
 printf "" > $dotenv
 
