@@ -249,9 +249,7 @@ async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(Co
 <meta property='og:description' content='" + description + "'>
 <meta property='twitter:description' content='" + description + "'>
 
-" + 
-
-"lol" + img.as_str() + "
+" + img.as_str() + "
 <script>window.location = '" + download_url + id + "';</script>
 
 <a href='" + download_url + id + "'>Download</a>
