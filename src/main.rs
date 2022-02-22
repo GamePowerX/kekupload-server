@@ -224,6 +224,11 @@ async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(Co
         let download_url = state.download_url.as_str();
         let id = entry.id.as_str();
 
+        let img = if is_image(entry.ext.clone()) {"
+        <meta property='og:image' content='".to_owned() + download_url + id + "'>
+        <meta property='twitter:image' content='" + download_url + id + "'>
+        "} else {"".to_owned()};
+
         return status::Custom(Status::Ok, (ContentType::HTML, "
 <!DOCTYPE html>
 <style>*{color:#fff;background-color:black;}</style>
@@ -244,9 +249,9 @@ async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(Co
 <meta property='og:description' content='" + description + "'>
 <meta property='twitter:description' content='" + description + "'>
 
-<meta property='og:image' content='" + download_url + id + "'>
-<meta property='twitter:image' content='" + download_url + id + "'>
+" + 
 
+"lol" + img.as_str() + "
 <script>window.location = '" + download_url + id + "';</script>
 
 <a href='" + download_url + id + "'>Download</a>
@@ -256,6 +261,16 @@ async fn api_embed(id: String, state: &State<UploadState>) -> status::Custom<(Co
     }
 }
 
+
+fn is_image(extension: String) -> bool{
+    extension.eq("png") ||
+    extension.eq("jpg") ||
+    extension.eq("jpeg") ||
+    extension.eq("ico") ||
+    extension.eq("gif") ||
+    extension.eq("bmp") ||
+    extension.eq("svg")
+}
 
 fn get_filename(hash: String, ext: String) -> String {
     if ext.eq("none") {
