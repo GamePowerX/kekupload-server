@@ -24,6 +24,7 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 
 ## Clients
 - [UploadClient (svelte)](https://github.com/KotwOSS/uploadclient)
+- [KekUploadCLIClient (C#)](https://github.com/CraftingDragon007/KekUploadCLIClient)
 
 <br>
 
