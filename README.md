@@ -1,4 +1,4 @@
-# UploadServer
+# KekUpload server
 
 A backend providing a HTTP REST like interface for uploading files written in [rust](https://www.rust-lang.org/).
 
@@ -23,11 +23,11 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 <br>
 
 ## Clients
-- [UploadClient (svelte)](https://github.com/KotwOSS/uploadclient)
+- [KekUpload client (svelte)](https://github.com/KotwOSS/kekupload-client)
 
 <br>
 
-You have created your own client for [UploadServer](https://oss.kotw.dev/uploadserver)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+You have created your own client for [KekUpload server](https://oss.kotw.dev/kekupload-server)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
 
 <hr>
 <br>
@@ -79,4 +79,4 @@ If you have aditional ideas how to make this tool better please create a feature
 <br>
 
 ## Contributing
-More information [here](https://oss.kotw.dev/uploadserver/CONTRIBUTE).
+More information [here](https://oss.kotw.dev/kekupload-server/CONTRIBUTE).
