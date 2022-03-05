@@ -24,6 +24,7 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 
 ## Clients
 - [KekUpload client (svelte)](https://github.com/KotwOSS/kekupload-client)
+- [KekUpload cli (C#)](https://github.com/CraftingDragon007/KekUploadCLIClient)
 
 <br>
 
@@ -33,6 +34,33 @@ You have created your own client for [KekUpload server](https://oss.kotw.dev/kek
 <br>
 
 ## Usage
+
+### Docker
+Get a prebuilt image [here](https://github.com/KotwOSS/uploadserver/pkgs/container/uploadserver)
+
+<br>
+
+or build it yourself:
+```
+docker build -t uploadserver:latest
+```
+
+<br>
+<br>
+
+**Running**
+
+prebuilt:
+```
+sudo docker run -ti ghcr.io/kotwoss/uploadserver:main
+```
+
+selfbuilt:
+```
+sudo docker run -ti uploadserver:latest
+```
+
+<br>
 
 ### Prerequirements
 
@@ -64,6 +92,7 @@ If you are developing and don't want to rebuild and run the client to release mo
 ```sh
 cargo run
 ```
+
 <hr>
 <br>
 
