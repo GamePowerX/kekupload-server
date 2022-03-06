@@ -340,6 +340,8 @@ fn rocket() -> _ {
         .parse()
         .unwrap_or(8000);
 
+    let address = env::var("address")
+        .unwrap_or("0.0.0.0".to_owned());
 
     let limits = Limits::default()
         .limit("bytes", chunk_size);
@@ -359,9 +361,10 @@ fn rocket() -> _ {
     let figment = rocket::Config::figment()
         .merge(("log_level", LogLevel::Critical))
         .merge(("limits", limits))
+        .merge(("address", address.clone()))
         .merge(("port", port));
 
-    println!("API: http://localhost:{}{}", port, api_base);
+    println!("API: http://{}:{}{}", address, port, api_base);
 
     let mut server = rocket::custom(figment)
         .manage(UploadState { 
@@ -399,7 +402,7 @@ fn rocket() -> _ {
         let web_base = env::var("web_base")
             .unwrap_or("/".to_owned());
 
-        println!("Web: http://localhost:{}{}", port, web_base);
+        println!("Web: http://{}:{}{}", address, port, web_base);
 
         server = server.mount(web_base, routes![
             web_index,
