@@ -1,14 +1,16 @@
+use std::sync::Arc;
+
 use actix_web::{web, Responder, post, Result};
-use sha1::{Digest};
+use sha1::Digest;
 use tokio::fs;
 
 use crate::{http::UploadState, util::{checker::{self, map_qres}, random}, config, models::file};
 
 
-#[post("/f/{stream}/{hash}")]
+#[post("/api/f/{stream}/{hash}")]
 pub async fn finish(
     path: web::Path<(String, String)>,
-    state: web::Data<UploadState>,
+    state: web::Data<Arc<UploadState>>,
 ) -> Result<impl Responder> {
     let (stream, hash) = path.into_inner();
 

@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use actix_web::{web, Responder, post, Result};
 use sha1::{Digest, Sha1};
 use futures::StreamExt;
@@ -5,10 +7,10 @@ use tokio::io::AsyncWriteExt;
 
 use crate::http::UploadState;
 
-#[post("/u/{stream}/{hash}")]
+#[post("/api/u/{stream}/{hash}")]
 pub async fn upload(
     path: web::Path<(String, String)>,
-    state: web::Data<UploadState>,
+    state: web::Data<Arc<UploadState>>,
     mut payload: web::Payload,
 ) -> Result<impl Responder> {
     let (stream, hash) = path.into_inner();
