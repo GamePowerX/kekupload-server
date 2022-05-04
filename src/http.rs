@@ -54,6 +54,7 @@ pub async fn main(state: Arc<UploadState>, address: String, port: u16) -> Result
             // API
             .service(routes::api::create::create)
             .service(routes::api::upload::upload)
+            .service(routes::api::finish::finish)
             .app_data(web::Data::new(state.clone()))
     })
     .bind((address, port))?
