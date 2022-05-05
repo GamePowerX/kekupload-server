@@ -1,5 +1,11 @@
 # KekUpload server
 
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=blanks)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=code)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=comments)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=files)
+
 A backend providing a HTTP REST like interface for uploading files written in [rust](https://www.rust-lang.org/).
 
 <br>
