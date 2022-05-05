@@ -19,6 +19,5 @@ pub async fn handle_all(
     state: web::Data<Arc<UploadState>>,
 ) -> Result<impl Responder> {
     let path = format!("{}{}", state.web_dir, path.into_inner().0);
-    println!("PATH: {}", path);
     NamedFile::open(path).map_err(|e| error::ErrorNotFound(format!("File not found {}", e)))
 }
