@@ -42,8 +42,6 @@ pub async fn main(state: Arc<UploadState>, address: String, port: u16) -> Result
     );
 
     match HttpServer::new(move || {
-        println!("kekw");
-
         let cors = Cors::default()
             .allow_any_origin()
             .allow_any_method()
