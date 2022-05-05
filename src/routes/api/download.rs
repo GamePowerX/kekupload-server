@@ -3,7 +3,7 @@ use std::{sync::Arc, path::Path};
 use actix_files::NamedFile;
 use actix_web::{web, get, Result, Responder, http::header::{ContentDisposition, DispositionType, DispositionParam}};
 
-use crate::{http::UploadState, util::checker, models::file};
+use crate::{http::UploadState, util::{checker, files}, models::file};
 
 #[get("/api/d/{id}/")]
 pub async fn download(
@@ -15,7 +15,7 @@ pub async fn download(
     let db_connection = &checker::get_con(&state.pool)?;
 
     if let Some(entry) = file::File::find(id, &db_connection).into_iter().next() {
-        let filename = get_filename(entry.hash.clone(), entry.ext);
+        let filename = files::get_filename(entry.hash.clone(), entry.ext);
 
         let named_file = NamedFile::open(Path::new(state.upload_dir.as_str()).join(entry.hash))
             .map_err(|e| crate::error!(FS_OPEN, FILE, "Error while opening file: {}", e))?;
@@ -30,13 +30,5 @@ pub async fn download(
         Ok(named_file.set_content_disposition(content_disposition))
     } else {
         Err(crate::error!(NOT_FOUND, ID, "File with id not found").into())
-    }
-}
-
-fn get_filename(hash: String, ext: String) -> String {
-    if ext.eq("none") {
-        return hash;
-    } else {
-        return hash + "." + ext.as_str();
     }
 }
