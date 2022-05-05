@@ -2,8 +2,6 @@ FROM rustlang/rust:nightly as builder
 WORKDIR /app
 COPY . .
 
-RUN chmod +x configure.sh
-
 RUN cargo install diesel_cli
 RUN cargo build --release
 RUN cp ./target/release/uploadserver .
@@ -35,4 +33,4 @@ RUN npm --version
 
 RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /app/
-CMD sh configure.sh
+CMD ./uploadserver
