@@ -6,7 +6,7 @@ use actix_web::{web, get, Result, Responder, http::header::{ContentDisposition, 
 use crate::{http::UploadState, util::checker, models::file};
 
 #[get("/api/d/{id}/")]
-pub async fn finish(
+pub async fn download(
     path: web::Path<(String,)>,
     state: web::Data<Arc<UploadState>>,
 ) -> Result<impl Responder> {
