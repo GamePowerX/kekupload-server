@@ -10,7 +10,7 @@ use std::fmt::{self, Display, Formatter};
 pub struct JsonError {
     err_type: JsonErrorType,
     field: String,
-    msg: String
+    error: String
 }
 
 #[derive(Debug)]
@@ -34,8 +34,8 @@ impl JsonErrorType {
 }
 
 impl JsonError {
-    pub fn new(err_type: JsonErrorType, field: String, msg: String) -> Self {
-        Self { err_type, field, msg }
+    pub fn new(err_type: JsonErrorType, field: String, error: String) -> Self {
+        Self { err_type, field, error }
     }
 }
 
@@ -45,10 +45,8 @@ impl Display for JsonError {
             f,
             "{}",
             json!({
-                "success": false,
-                "status": self.err_type.code.as_u16(),
                 "generic": self.err_type.name,
-                "msg": self.msg,
+                "error": self.error,
                 "field": self.field
             })
         )
