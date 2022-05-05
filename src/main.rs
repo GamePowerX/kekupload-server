@@ -265,16 +265,7 @@ fn clean_tmp<'a>(tmp: &'a str) {
 #[tokio::main]
 async fn main() {
     dotenv().ok();
-
-    let _embed_route_base = env::var("embed_route_base")
-        .unwrap_or("/".to_owned());
-
-    let _download_route_base = env::var("download_route_base")
-        .unwrap_or("/".to_owned());
-
-    let _api_base = env::var("api_base")
-        .unwrap_or("/api/".to_owned());
-
+    
     let tmp_dir = env::var("tmp_dir")
         .unwrap_or("tmp/".to_owned());
         
