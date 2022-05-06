@@ -1,16 +1,16 @@
-use diesel::{PgConnection, QueryResult, QueryDsl};
 use crate::diesel::RunQueryDsl;
+use diesel::{PgConnection, QueryDsl, QueryResult};
 
 use crate::schema::files;
 
 use crate::diesel::ExpressionMethods;
 
 #[derive(Queryable, Insertable)]
-#[table_name="files"]
+#[table_name = "files"]
 pub struct File {
     pub id: String,
     pub ext: String,
-    pub hash: String
+    pub hash: String,
 }
 
 impl File {
@@ -20,11 +20,10 @@ impl File {
             .execute(connection)
     }
 
-    pub fn find(id: String, connection: &PgConnection) -> Vec<File> {
+    pub fn find(id: String, connection: &PgConnection) -> QueryResult<Vec<File>> {
         files::table
             .filter(files::dsl::id.eq(id))
             .select((files::dsl::id, files::dsl::ext, files::dsl::hash))
             .load::<File>(connection)
-            .expect("Error while executing query!")
     }
 }

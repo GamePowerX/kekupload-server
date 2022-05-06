@@ -1,10 +1,9 @@
 use std::sync::Arc;
 
-use actix_web::{web, Responder, post, Result};
+use actix_web::{post, web, Responder, Result};
 use tokio::fs;
 
 use crate::http::UploadState;
-
 
 #[post("/api/r/{stream}")]
 pub async fn remove(
@@ -18,13 +17,14 @@ pub async fn remove(
     match map.remove(&stream) {
         Some(_) => {
             let file_path = state.tmp_dir.clone() + &stream;
-            fs::remove_file(file_path).await
+            fs::remove_file(file_path)
+                .await
                 .map_err(|e| crate::error!(FS_REMOVE, FILE, "Error while removing file: {}", e))?;
 
             Ok(web::Json(json!({
                 "success": true
             })))
-        },
-        None => Err(crate::error!(NOT_FOUND, STREAM, "Stream not found").into())
+        }
+        None => Err(crate::error!(NOT_FOUND, STREAM, "Stream not found").into()),
     }
 }

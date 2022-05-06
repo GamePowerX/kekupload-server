@@ -1,8 +1,13 @@
 use std::sync::Arc;
 
-use actix_web::{web, get, Result, Responder, http::header::ContentType, HttpResponse};
+use actix_web::{get, http::header::ContentType, web, HttpResponse, Responder, Result};
 
-use crate::{http::UploadState, util::checker, models::file, util::files};
+use crate::{
+    http::UploadState,
+    models::file,
+    util::checker::{self, map_qres},
+    util::files,
+};
 
 #[get("/{id}")]
 pub async fn embed(
@@ -13,7 +18,13 @@ pub async fn embed(
 
     let db_connection = &checker::get_con(&state.pool)?;
 
-    if let Some(entry) = file::File::find(id, &db_connection).into_iter().next() {
+    if let Some(entry) = map_qres(
+        file::File::find(id, &db_connection),
+        "Error while selecting files",
+    )?
+    .into_iter()
+    .next()
+    {
         let id = entry.id;
 
         let filename = files::get_filename(entry.hash.clone(), entry.ext.clone());
@@ -23,18 +34,21 @@ pub async fn embed(
         let color = state.embed_color.as_str();
 
         let image = if files::is_image(entry.ext) {
-            format!(concat!(
-                "<meta property='og:image' content='{0}'>",
-                "<meta property='twitter:image' content='{0}'>"
-            ), download_url)
+            format!(
+                concat!(
+                    "<meta property='og:image' content='{0}'>",
+                    "<meta property='twitter:image' content='{0}'>"
+                ),
+                download_url
+            )
         } else {
             "".to_owned()
         };
 
-        Ok(
-            HttpResponse::Ok()
-                .content_type(ContentType::html())
-                .body(format!(concat!(
+        Ok(HttpResponse::Ok()
+            .content_type(ContentType::html())
+            .body(format!(
+                concat!(
                     "<!DOCTYPE html>",
                     "<meta http-equiv=\"Refresh\" content=\"0; url='{0}'\" />",
                     "<meta charset='UTF-8'>",
@@ -46,8 +60,9 @@ pub async fn embed(
                     "<meta property='og:description' content='{3}'>",
                     "<meta property='twitter:description' content='{3}'>",
                     "{4}"
-                ), download_url, filename, color, description, image))
-        )
+                ),
+                download_url, filename, color, description, image
+            )))
     } else {
         Err(crate::error!(NOT_FOUND, ID, "File with id not found").into())
     }
