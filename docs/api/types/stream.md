@@ -4,7 +4,7 @@
 
 <h2><a href="#">Stream</a></h2>
 
-A stream is a random string which is used for identification. See [workflow](../workflow) for more information.
+A stream is a random string which is used for identification. See <a href="../workflow">workflow</a> for more information.
 
 
 ## Notice

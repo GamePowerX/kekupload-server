@@ -4,7 +4,7 @@
 
 <h2><a href="#">POST ~/r/{stream}</a></h2>
 
-Terminate an upload stream. See [workflow](../workflow) for more information.
+Terminate an upload stream. See <a href="../workflow">workflow</a> for more information.
 
 
 ## Params
@@ -12,7 +12,7 @@ Terminate an upload stream. See [workflow](../workflow) for more information.
 <details>
 <summary>stream</summary>
 
-The stream which you get from the [create](create) route. See [workflow](../workflow) and [stream](../types/stream) for more information.
+The stream which you get from the <a href="create">create</a> route. See <a href="../workflow">workflow</a> and <a href="../types/stream">stream</a> for more information.
 
 </details>
 

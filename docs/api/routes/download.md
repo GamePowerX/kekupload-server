@@ -4,7 +4,7 @@
 
 <h2><a href="#">GET ~/d/{id}</a></h2>
 
-Download an uploaded file. See [workflow](../workflow) for more information.
+Download an uploaded file. See <a href="../workflow">workflow</a> for more information.
 
 
 ## Params
@@ -12,7 +12,7 @@ Download an uploaded file. See [workflow](../workflow) for more information.
 <details>
 <summary>id</summary>
 
-The id which you get from the [finish](finish) route. See [workflow](../workflow) for more information.
+The id which you get from the <a href="finish">finish</a> route. See <a href="../workflow">workflow</a> for more information.
 
 </details>
 

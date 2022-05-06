@@ -4,7 +4,7 @@
 
 <h2><a href="#">Routes</a></h2>
 
-See [workflow](../workflow) for more information.
+See <a href="../workflow">workflow</a> for more information.
 
 <a href="create">create</a><br>
 <a href="remove">remove</a><br>

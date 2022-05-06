@@ -10,7 +10,7 @@ Workflow of uploading files to KekUpload.
 
 ### Upload a text file containing a string
 
-1. Create a new stream using the [create](routes/create) route. <br>
+1. Create a new stream using the <a href="routes/create">create</a> route. <br>
 ```sh
 curl --request POST \
     --data ""
@@ -26,7 +26,7 @@ Now you need to extract the stream from the response. (Just copy the {stream})
 
 <br>
 
-2. Upload a chunk using the [upload](routes/upload) route. <br>
+1. Upload a chunk using the <a href="routes/upload">upload</a> route. <br>
 `// Please change '{stream}' to the value you extracted earlier.` <br>
 ```sh
 curl --request POST \
@@ -42,7 +42,7 @@ which should give you the following response: <br>
 
 <br>
 
-3. Finalize the stream using the [finish](routes/finish) route. <br>
+1. Finalize the stream using the <a href="routes/finish">finish</a> route. <br>
 `// Please change '{stream}' to the value you extracted earlier.` <br>
 ```sh
 curl --request POST \

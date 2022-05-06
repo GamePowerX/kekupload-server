@@ -4,7 +4,7 @@
 
 <h2><a href="#">POST ~/c/{extension}</a></h2>
 
-Create a new upload stream which you can upload to. See [workflow](../workflow) for more information.
+Create a new upload stream which you can upload to. See <a href="../workflow">workflow</a> for more information.
 
 
 ## Params
@@ -12,7 +12,7 @@ Create a new upload stream which you can upload to. See [workflow](../workflow) 
 <details>
 <summary>extension</summary>
 
-The extension which will later after uploading be used to be put after the hash in the Content-Disposition header. See [extension](../types/extension) for more information.
+The extension which will later after uploading be used to be put after the hash in the Content-Disposition header. See <a href="../types/extension">extension</a> for more information.
 
 </details>
 
