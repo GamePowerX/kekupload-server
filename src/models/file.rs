@@ -1,16 +1,16 @@
-use diesel::{PgConnection, QueryResult, QueryDsl};
 use crate::diesel::RunQueryDsl;
+use diesel::{PgConnection, QueryDsl, QueryResult};
 
 use crate::schema::files;
 
 use crate::diesel::ExpressionMethods;
 
 #[derive(Queryable, Insertable)]
-#[table_name="files"]
+#[table_name = "files"]
 pub struct File {
     pub id: String,
     pub ext: String,
-    pub hash: String
+    pub hash: String,
 }
 
 impl File {

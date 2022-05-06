@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
-use actix_web::{web, Responder, post, Result};
-use sha1::{Digest, Sha1};
+use actix_web::{post, web, Responder, Result};
 use futures::StreamExt;
+use sha1::{Digest, Sha1};
 use tokio::io::AsyncWriteExt;
 
 use crate::http::UploadState;
@@ -37,7 +37,11 @@ pub async fn upload(
         }
 
         entry.hasher.update(&body);
-        entry.file.write_all(&body).await.map_err(|e| crate::error!(FS_WRITE, FILE, "Error while writing file: {}", e))?;
+        entry
+            .file
+            .write_all(&body)
+            .await
+            .map_err(|e| crate::error!(FS_WRITE, FILE, "Error while writing file: {}", e))?;
 
         Ok(web::Json(json!({
             "success": true

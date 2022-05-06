@@ -1,21 +1,19 @@
 use std::sync::Arc;
 
 use actix_files::NamedFile;
-use actix_web::{get, Responder, web, Result, error};
+use actix_web::{error, get, web, Responder, Result};
 
-use crate::{http::UploadState};
+use crate::http::UploadState;
 
 #[get("/")]
-pub async fn index(
-    state: web::Data<Arc<UploadState>>,
-) -> Result<impl Responder> {
+pub async fn index(state: web::Data<Arc<UploadState>>) -> Result<impl Responder> {
     let path = format!("{}index.html", state.web_dir);
     Ok(NamedFile::open(path)?)
 }
 
 #[get("/{path:.*}")]
 pub async fn handle_all(
-    path: web::Path<(String,)>, 
+    path: web::Path<(String,)>,
     state: web::Data<Arc<UploadState>>,
 ) -> Result<impl Responder> {
     let path = format!("{}{}", state.web_dir, path.into_inner().0);

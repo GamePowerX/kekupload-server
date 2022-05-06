@@ -3,11 +3,11 @@ use std::{io::Error, sync::Arc};
 use std::collections::HashMap;
 
 use actix_cors::Cors;
-use actix_web::{HttpServer, App, web};
+use actix_web::{web, App, HttpServer};
 use sha1::Sha1;
 use tokio::{fs::File, sync::Mutex};
 
-use crate::{database::PgPool, colors, routes};
+use crate::{colors, database::PgPool, routes};
 
 pub struct UploadState {
     pub map: Mutex<HashMap<String, UploadEntry>>,
@@ -22,13 +22,13 @@ pub struct UploadState {
     pub embed_color: String,
     pub download_url: String,
 
-    pub chunk_size: usize
+    pub chunk_size: usize,
 }
 
 pub struct UploadEntry {
     pub file: File,
     pub ext: String,
-    pub hasher: Sha1
+    pub hasher: Sha1,
 }
 
 pub async fn main(state: Arc<UploadState>, address: String, port: u16) -> Result<(), Error> {

@@ -6,12 +6,12 @@ pub fn get_filename(hash: String, ext: String) -> String {
     }
 }
 
-pub fn is_image(extension: String) -> bool{
-    extension.eq("png") ||
-    extension.eq("jpg") ||
-    extension.eq("jpeg") ||
-    extension.eq("ico") ||
-    extension.eq("gif") ||
-    extension.eq("bmp") ||
-    extension.eq("svg")
+pub fn is_image(extension: String) -> bool {
+    extension.eq("png")
+        || extension.eq("jpg")
+        || extension.eq("jpeg")
+        || extension.eq("ico")
+        || extension.eq("gif")
+        || extension.eq("bmp")
+        || extension.eq("svg")
 }
