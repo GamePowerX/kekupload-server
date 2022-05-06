@@ -20,11 +20,10 @@ impl File {
             .execute(connection)
     }
 
-    pub fn find(id: String, connection: &PgConnection) -> Vec<File> {
+    pub fn find(id: String, connection: &PgConnection) -> QueryResult<Vec<File>> {
         files::table
             .filter(files::dsl::id.eq(id))
             .select((files::dsl::id, files::dsl::ext, files::dsl::hash))
             .load::<File>(connection)
-            .expect("Error while executing query!")
     }
 }

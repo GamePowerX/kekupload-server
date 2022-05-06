@@ -3,7 +3,7 @@ use std::{sync::Arc, path::Path};
 use actix_files::NamedFile;
 use actix_web::{web, get, Result, Responder, http::header::{ContentDisposition, DispositionType, DispositionParam}};
 
-use crate::{http::UploadState, util::{checker, files}, models::file};
+use crate::{http::UploadState, util::{checker::{self, map_qres}, files}, models::file};
 
 #[get("/api/d/{id}/")]
 pub async fn download(
@@ -14,7 +14,7 @@ pub async fn download(
 
     let db_connection = &checker::get_con(&state.pool)?;
 
-    if let Some(entry) = file::File::find(id, &db_connection).into_iter().next() {
+    if let Some(entry) = map_qres(file::File::find(id, &db_connection), "Error while selecting files")?.into_iter().next() {
         let filename = files::get_filename(entry.hash.clone(), entry.ext);
 
         let named_file = NamedFile::open(Path::new(state.upload_dir.as_str()).join(entry.hash))

@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use actix_web::{web, get, Result, Responder, http::header::ContentType, HttpResponse};
 
-use crate::{http::UploadState, util::checker, models::file, util::files};
+use crate::{http::UploadState, util::checker::{self, map_qres}, models::file, util::files};
 
 #[get("/{id}")]
 pub async fn embed(
@@ -13,7 +13,7 @@ pub async fn embed(
 
     let db_connection = &checker::get_con(&state.pool)?;
 
-    if let Some(entry) = file::File::find(id, &db_connection).into_iter().next() {
+    if let Some(entry) = map_qres(file::File::find(id, &db_connection), "Error while selecting files")?.into_iter().next() {
         let id = entry.id;
 
         let filename = files::get_filename(entry.hash.clone(), entry.ext.clone());
