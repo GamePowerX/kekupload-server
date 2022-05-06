@@ -30,7 +30,6 @@ pub async fn create(
     map.insert(stream.clone(), entry);
 
     Ok(web::Json(json!({
-        "success": true,
         "stream": stream
     })))
 }

@@ -36,7 +36,7 @@ pub async fn finish(
             map_qres(new_file.create(db_connection), "Error while inserting file")?;
 
             Ok(web::Json(json!({
-                "success": true
+                "id": id
             })))
         } else {
             Err(crate::error!(HASH_MATCH, HASH, "Hash doesn't match").into())
