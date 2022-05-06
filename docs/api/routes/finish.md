@@ -33,11 +33,12 @@ The hash of all the chunks that have been uploaded using the [upload](upload) ro
 <details>
 <summary>cURL</summary>
 
-```sh
+{% highlight sh %}
 curl --request POST \
     --data ""
     --url ~/f/{stream}/{hash}
-```
+{% endhighlight %}
+
 </details>
 
 <br>
@@ -48,11 +49,11 @@ curl --request POST \
 <details>
 <summary>200 - Ok</summary>
 
-```json
+{% highlight json %}
 {
     "id": "{id}"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -61,13 +62,13 @@ curl --request POST \
 <details>
 <summary>400 - Bad Request</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "HASH_MATCH",
     "field": "HASH",
     "error": "Hash doesn't match"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -76,13 +77,13 @@ curl --request POST \
 <details>
 <summary>404 - Not Found</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "NOT_FOUND",
     "field": "STREAM",
     "error": "Stream not found"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -91,20 +92,20 @@ curl --request POST \
 <details>
 <summary>500 - Internal Server Error</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "FS_RENAME",
     "field": "FILE",
     "error": "Error while renaming file: {error}"
 }
-```
+{% endhighlight %}
 
-```json
+{% highlight json %}
 {
     "generic": "DB_QUERY",
     "field": "QUERY",
     "error": "Error while inserting file: {error}"
 }
-```
+{% endhighlight %}
 
 </details>

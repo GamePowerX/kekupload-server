@@ -9,7 +9,7 @@ An error object looks like this:
 }
 ```
 
-```// Generic errors``` <br>
+`// Generic errors` <br>
 
 **404 Not Found:** <br>
 * `NOT_FOUND`: The requested resource was not found. <br>
@@ -21,7 +21,7 @@ An error object looks like this:
 * `OVERFLOW`: Request body too big. <br>
 <br>
 
-```// Internal errors``` <br>
+`// Internal errors` <br>
 
 **500 Internal Server Error:**
 * `DB_CONNECT`: Database connection errors. <br>

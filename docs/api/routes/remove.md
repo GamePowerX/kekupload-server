@@ -30,12 +30,6 @@ curl --request POST \
     --url ~/r/{stream}
 {% endhighlight %}
 
-```sh
-curl --request POST \
-    --data ""
-    --url ~/r/{stream}
-```
-
 </details>
 
 <br>
@@ -46,11 +40,11 @@ curl --request POST \
 <details>
 <summary>200 - Ok</summary>
 
-```json
+{% highlight json %}
 {
     "success": true
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -59,13 +53,13 @@ curl --request POST \
 <details>
 <summary>404 - Not Found</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "NOT_FOUND",
     "field": "STREAM",
     "error": "Stream not found"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -74,12 +68,12 @@ curl --request POST \
 <details>
 <summary>500 - Internal Server Error</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "FS_REMOVE",
     "field": "FILE",
     "error": "Error while removing file: {error}"
 }
-```
+{% endhighlight %}
 
 </details>

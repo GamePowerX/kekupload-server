@@ -24,11 +24,12 @@ The id which you get from the [finish](finish) route. See [workflow](../workflow
 <details>
 <summary>cURL</summary>
 
-```sh
+{% highlight sh %}
 curl --request POST \
     --data ""
     --url ~/d/{id}
-```
+{% endhighlight %}
+
 </details>
 
 <br>
@@ -48,13 +49,13 @@ Returns the actual file content.
 <details>
 <summary>404 - Not Found</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "NOT_FOUND",
     "field": "ID",
     "error": "File with id not found"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -63,20 +64,20 @@ Returns the actual file content.
 <details>
 <summary>500 - Internal Server Error</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "FS_OPEN",
     "field": "FILE",
     "error": "Error while opening file: {error}"
 }
-```
+{% endhighlight %}
 
-```json
+{% highlight json %}
 {
     "generic": "DB_QUERY",
     "field": "QUERY",
     "error": "Error while selecting files: {error}"
 }
-```
+{% endhighlight %}
 
 </details>

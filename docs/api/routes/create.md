@@ -24,11 +24,12 @@ The extension which will later after uploading be used to be put after the hash 
 <details>
 <summary>cURL</summary>
 
-```sh
+{% highlight sh %}
 curl --request POST \
     --data ""
     --url ~/c/{extension}
-```
+{% endhighlight %}
+
 </details>
 
 <br>
@@ -39,11 +40,12 @@ curl --request POST \
 <details>
 <summary>200 - Ok</summary>
 
-```json
+{% highlight json %}
 {
     "stream": "{stream}"
 }
-```
+{% endhighlight %}
+
 </details>
 
 <br>
@@ -51,13 +53,13 @@ curl --request POST \
 <details>
 <summary>400 - Bad Request</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "PARAM_LENGTH",
     "field": "EXTENSION",
     "error": "EXTENSION must be in bounds 0-{config::EXTENSION_MAX_LENGTH}"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -66,12 +68,12 @@ curl --request POST \
 <details>
 <summary>500 - Internal Server Error</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "FS_CREATE",
     "field": "FILE",
     "error": "Error while creating file: {error}"
 }
-```
+{% endhighlight %}
 
 </details>

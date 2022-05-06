@@ -33,11 +33,12 @@ The hash of the HTTP body. See [workflow](../workflow) and [hash](../types/hash)
 <details>
 <summary>cURL</summary>
 
-```sh
+{% highlight sh %}
 curl --request POST \
     --data "kekw"
     --url ~/u/{stream}/efb815e2393a127f19c8caf79f6a5f676aedb62a
-```
+{% endhighlight %}
+
 </details>
 
 <br>
@@ -48,11 +49,11 @@ curl --request POST \
 <details>
 <summary>200 - Ok</summary>
 
-```json
+{% highlight json %}
 {
     "success": true
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -61,21 +62,21 @@ curl --request POST \
 <details>
 <summary>400 - Bad Request</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "HASH_MATCH",
     "field": "HASH",
     "error": "Hash doesn't match"
 }
-```
+{% endhighlight %}
 
-```json
+{% highlight json %}
 {
     "generic": "OVERFLOW",
     "field": "CHUNK",
     "error": "Chunk size exceeded"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -84,13 +85,13 @@ curl --request POST \
 <details>
 <summary>404 - Not Found</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "NOT_FOUND",
     "field": "STREAM",
     "error": "Stream not found"
 }
-```
+{% endhighlight %}
 
 </details>
 
@@ -99,12 +100,12 @@ curl --request POST \
 <details>
 <summary>500 - Internal Server Error</summary>
 
-```json
+{% highlight json %}
 {
     "generic": "FS_WRITE",
     "field": "FILE",
     "error": "Error while writing file: {error}"
 }
-```
+{% endhighlight %}
 
 </details>
