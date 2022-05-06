@@ -1,10 +1,10 @@
 # KekUpload API
 
+<br>
+
 <h2><a href="#">POST ~/r/{stream}</a></h2>
 
 Terminate an upload stream. See [workflow](../workflow) for more information.
-
-<br>
 
 
 ## Params

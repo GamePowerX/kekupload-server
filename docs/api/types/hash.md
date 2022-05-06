@@ -1,10 +1,10 @@
 # KekUpload API
 
+<br>
+
 <h2><a href="#">Hash</a></h2>
 
 The hashing algorithm used by KekUpload is `SHA1`. See [workflow](../workflow) for more information.
-
-<br>
 
 
 ## Notice

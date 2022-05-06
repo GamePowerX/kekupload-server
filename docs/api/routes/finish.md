@@ -1,10 +1,10 @@
 # KekUpload API
 
+<br>
+
 <h2><a href="#">POST ~/f/{stream}/{hash}</a></h2>
 
 Finalize an upload stream. See [workflow](../workflow) for more information.
-
-<br>
 
 
 ## Params

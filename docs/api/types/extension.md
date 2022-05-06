@@ -1,10 +1,10 @@
 # KekUpload API
 
+<br>
+
 <h2><a href="#">Extension</a></h2>
 
 An extension is like a file extension but with a few exceptions. See [workflow](../workflow) for more information.
-
-<br>
 
 
 ## Notice

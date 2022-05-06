@@ -1,10 +1,10 @@
 # KekUpload API
 
+<br>
+
 <h2><a href="#">POST ~/c/{extension}</a></h2>
 
 Create a new upload stream which you can upload to. See [workflow](../workflow) for more information.
-
-<br>
 
 
 ## Params
