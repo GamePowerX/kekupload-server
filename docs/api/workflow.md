@@ -49,3 +49,13 @@ curl --request POST \
     --data ""
     --url ~/f/{stream}/efb815e2393a127f19c8caf79f6a5f676aedb62a
 ```
+which should give you the following response: <br>
+```json
+{
+    "id": "{id}"
+}
+```
+
+<br>
+
+You did it :) Now you can download your file from `~/d/{id}`
