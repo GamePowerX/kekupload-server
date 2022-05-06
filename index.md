@@ -1,37 +1,117 @@
-## Welcome to GitHub Pages
+# KekUpload server
 
-You can use the [editor on GitHub](https://github.com/KotwOSS/kekupload-server/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=blanks)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=code)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=comments)
+![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=files)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+A backend providing a HTTP REST like interface for uploading files written in [rust](https://www.rust-lang.org/).
 
-### Markdown
+<br>
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+[API Documentation](https://oss.kotw.dev/kekupload-server/docs/API)
 
-```markdown
-Syntax highlighted code block
+<br>
 
-# Header 1
-## Header 2
-### Header 3
+## License
+This project is licensed under the [Mit License](https://mit-license.org/)
 
-- Bulleted
-- List
+<hr>
+<br>
 
-1. Numbered
-2. List
+## Features
+1. Rest api
+2. Chunked uploading
+3. Embeds
 
-**Bold** and _Italic_ and `Code` text
+<hr>
+<br>
 
-[Link](url) and ![Image](src)
+## Clients
+- [KekUpload client (svelte)](https://github.com/KotwOSS/kekupload-client)
+- [KekUpload cli (C#)](https://github.com/CraftingDragon007/KekUploadCLIClient)
+
+<br>
+
+You have created your own client for [KekUpload server](https://oss.kotw.dev/kekupload-server)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+
+<hr>
+<br>
+
+## Usage
+
+### Docker
+Get a prebuilt image [here](https://github.com/KotwOSS/uploadserver/pkgs/container/uploadserver)
+
+<br>
+
+or build it yourself:
+```
+docker build -t uploadserver:latest
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+<br>
+<br>
 
-### Jekyll Themes
+**Running**
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/KotwOSS/kekupload-server/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+prebuilt:
+```
+sudo docker run -ti ghcr.io/kotwoss/uploadserver:main
+```
 
-### Support or Contact
+selfbuilt:
+```
+sudo docker run -ti uploadserver:latest
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+<br>
+
+### Prerequirements
+
+- Rust Nightly <br>
+You need [rustup](https://rustup.rs/) to run this.
+
+```sh
+rustup default nightly
+```
+
+<br>
+
+### Configuration
+Copy default.env to .env and change the settings in .env.
+
+<br>
+
+### Building
+```sh
+cargo build --release
+```
+
+The executable will be located at `target/release/uploadserver`
+
+<br>
+
+### Testing
+If you are developing and don't want to rebuild and run the client to release mode use
+```sh
+cargo run
+```
+
+<hr>
+<br>
+
+## Goals
+
+- Image compression
+
+<br>
+
+If you have aditional ideas how to make this tool better please create a feature request in the issues tab.
+
+<hr>
+<br>
+
+## Contributing
+More information [here](https://oss.kotw.dev/kekupload-server/CONTRIBUTE).
