@@ -5,4 +5,4 @@ upload/
 Cargo.lock
 .vscode/
 uploadserver.wiki/
-web/
+/web/
