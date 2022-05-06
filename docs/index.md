@@ -24,4 +24,14 @@
 
 </details>
 
+<details>
+
+<summary><a href="api/routes">Types</a></summary> 
+
+<a href="api/types/extension">extension</a><br>
+<a href="api/types/hash">hash</a><br>
+<a href="api/types/stream">stream</a><br>
+
+</details>
+
 </details>
