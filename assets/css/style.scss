@@ -1,0 +1,29 @@
+@import "{{ site.theme }}";
+
+// Breakpoints
+$large-breakpoint: 64em !default;
+$medium-breakpoint: 42em !default;
+
+// Headers
+$header-heading-color: #fff !default;
+$header-bg-color: #159957 !default;
+$header-bg-color-secondary: #155799 !default;
+
+// Text
+$section-headings-color: #8fffbe !default;
+$body-text-color: #cacaca !default;
+$body-link-color: #51a8ff !default;
+$blockquote-text-color: #bcd1da !default;
+
+// Code
+$code-bg-color: #000000 !default;
+$code-text-color: #9ecbe0 !default;
+
+// Borders
+$border-color: #000000 !default;
+$table-border-color: #292929 !default;
+$hr-border-color: #202020 !default;
+
+body {
+    background-color: black;
+}
