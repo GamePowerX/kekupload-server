@@ -4,12 +4,6 @@
  
 <a href="errors">Errors</a><br>
 
-{% highlight sh %}
-curl --request POST \
-    --data ""
-    --url ~/r/{stream}
-{% endhighlight %}
-
 <details>
 
 <summary><a href="routes">Routes</a></summary> 

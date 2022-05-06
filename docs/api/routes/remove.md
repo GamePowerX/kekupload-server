@@ -24,11 +24,18 @@ The stream which you get from the [create](create) route. See [workflow](../work
 <details>
 <summary>cURL</summary>
 
+{% highlight sh %}
+curl --request POST \
+    --data ""
+    --url ~/r/{stream}
+{% endhighlight %}
+
 ```sh
 curl --request POST \
     --data ""
     --url ~/r/{stream}
 ```
+
 </details>
 
 <br>
