@@ -16,7 +16,7 @@ use crate::{
     },
 };
 
-#[get("/api/d/{id}/")]
+#[get("/api/d/{id}")]
 pub async fn download(
     path: web::Path<(String,)>,
     state: web::Data<Arc<UploadState>>,
