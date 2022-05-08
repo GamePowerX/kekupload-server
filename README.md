@@ -29,12 +29,18 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 <br>
 
 ## Clients
-- [KekUpload client (svelte)](https://github.com/KotwOSS/kekupload-client)
-- [KekUpload cli (C#)](https://github.com/CraftingDragon007/KekUploadCLIClient)
+- [kekupload-client client (svelte)](https://github.com/KotwOSS/kekupload-client)
+- [KekUploadCLIClient (C#)](https://github.com/CraftingDragon007/KekUploadCLIClient)
 
 <br>
 
-You have created your own client for [KekUpload server](https://oss.kotw.dev/kekupload-server)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+## Libraries
+- [kekupload-lib-ts (typescript)](https://github.com/KotwOSS/kekupload-lib-ts)
+- [KekUploadLibrary (C#)](https://github.com/CraftingDragon007/KekUploadLibrary)
+
+<br>
+
+You have created your own client/library for [kekupload-server](https://oss.kotw.dev/kekupload-server)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
 
 <hr>
 <br>
