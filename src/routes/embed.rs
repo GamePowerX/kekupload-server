@@ -55,6 +55,7 @@ pub async fn embed(
                     "<meta property='og:type' content='website'>",
                     "<meta property='twitter:card' content='summary_large_image'>",
                     "<meta name='title' content='{1}'>",
+                    "<meta property='og:title' content='{1}'>",
                     "<meta name='theme-color' content='{2}'>",
                     "<meta name='description' content='{3}'>",
                     "<meta property='og:description' content='{3}'>",
