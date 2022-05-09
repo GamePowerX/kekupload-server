@@ -9,7 +9,8 @@ use crate::{
     util::files,
 };
 
-#[get("/{id}")]
+// Should change if you have different id lengths
+#[get("/{id:[a-zA-Z0-9-_]{7}}")]
 pub async fn embed(
     path: web::Path<(String,)>,
     state: web::Data<Arc<UploadState>>,
