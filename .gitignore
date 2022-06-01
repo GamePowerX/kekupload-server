@@ -3,6 +3,5 @@ target/
 tmp/
 upload/
 Cargo.lock
-.vscode/
 uploadserver.wiki/
 /web/

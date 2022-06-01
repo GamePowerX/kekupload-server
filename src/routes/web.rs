@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 use std::sync::Arc;
 
 use actix_files::NamedFile;
@@ -19,8 +25,8 @@ pub async fn handle_all(
     let path = format!("{}{}", state.web_dir, path.into_inner().0);
     match NamedFile::open(path) {
         Ok(file) => Ok(file),
-        Err(_) => NamedFile::open(format!("{}404.html", state.web_dir)).map_err(|e| error::ErrorNotFound(format!(
-            "File not found and 404.html doesn't exist: {}", e
-        ))),
+        Err(_) => NamedFile::open(format!("{}404.html", state.web_dir)).map_err(|e| {
+            error::ErrorNotFound(format!("File not found and 404.html doesn't exist: {}", e))
+        }),
     }
 }

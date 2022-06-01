@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 use std::sync::Arc;
 
 use actix_web::{get, http::header::ContentType, web, HttpResponse, Responder, Result};

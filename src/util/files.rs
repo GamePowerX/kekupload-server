@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 pub fn get_filename(hash: String, ext: String) -> String {
     if ext.eq("none") {
         return hash;

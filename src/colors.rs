@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 pub const RED: &'static str = "\x1B[38;2;255;0;0m";
 pub const LIGHT_RED: &'static str = "\x1B[38;2;255;150;150m";
 pub const GREEN: &'static str = "\x1B[38;2;0;255;0m";
