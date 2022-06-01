@@ -30,8 +30,24 @@ fn clean_tmp<'a>(tmp: &'a str) {
     fs::create_dir(tmp).expect("Failed to create temp directory!");
 }
 
+fn print_logo() {
+    println!("{}\n\
+ █▄▀ █▀▀ █▄▀ █ █ █▀█ █   █▀█ ▄▀█ █▀▄\n\
+ █ █ ██▄ █ █ █▄█ █▀▀ █▄▄ █▄█ █▀█ █▄▀\n\
+    {}", 
+    colors::ORANGE, colors::RESET);
+    println!("KekUpload version {}{}{}\n\n", colors::LIGHT_BLUE, env!("GIT_HASH"), colors::RESET);
+    println!("Written by {}KotwOSS{} licensed under {}MIT{}.\n",
+        colors::LIGHT_BLUE, colors::RESET, colors::LIGHT_BLUE, colors::RESET);
+    println!("{}(c){} Copyright 2022 {}KotwOSS{}\n\n", 
+        colors::RED, colors::RESET, colors::LIGHT_BLUE, colors::RESET);
+}
+
 #[tokio::main]
 async fn main() {
+
+    print_logo();
+
     dotenv().ok();
 
     let tmp_dir = env::var("tmp_dir").unwrap_or("tmp/".to_owned());

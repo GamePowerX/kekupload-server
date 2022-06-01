@@ -91,13 +91,14 @@ json_error_type!(MISSING, StatusCode::BAD_REQUEST);
 json_error_type!(DB_CONNECT, StatusCode::INTERNAL_SERVER_ERROR);
 json_error_type!(DB_QUERY, StatusCode::INTERNAL_SERVER_ERROR);
 
-json_error_type!(FS_CREATE, StatusCode::INTERNAL_SERVER_ERROR);
+json_error_type!(FS_CREATE, StatusCode::INTERNAL_SERVER_ERROR); 
 json_error_type!(FS_RENAME, StatusCode::INTERNAL_SERVER_ERROR);
-json_error_type!(FS_DELETE, StatusCode::INTERNAL_SERVER_ERROR);
 json_error_type!(FS_WRITE, StatusCode::INTERNAL_SERVER_ERROR);
 json_error_type!(FS_OPEN, StatusCode::INTERNAL_SERVER_ERROR);
 json_error_type!(FS_REMOVE, StatusCode::INTERNAL_SERVER_ERROR);
+json_error_type!(FS_META, StatusCode::INTERNAL_SERVER_ERROR);
 
 json_error_type!(HASH_MATCH, StatusCode::BAD_REQUEST);
 
 json_error_type!(OVERFLOW, StatusCode::BAD_REQUEST);
+json_error_type!(RANGE, StatusCode::BAD_REQUEST);
