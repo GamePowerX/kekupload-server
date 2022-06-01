@@ -292,7 +292,9 @@ pub async fn length(
             })?
             .len();
 
-        Ok(file_size.to_string())
+        Ok(web::Json(json!({
+            "size": file_size
+        })))
     } else {
         Err(crate::error!(NOT_FOUND, ID, "File with id not found").into())
     }
