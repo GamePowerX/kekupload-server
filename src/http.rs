@@ -57,6 +57,7 @@ pub async fn main(state: Arc<UploadState>, address: String, port: u16) -> Result
             .service(routes::api::finish::finish)
             .service(routes::api::download::download)
             .service(routes::api::download::download_chunk)
+            .service(routes::api::length::length)
             .service(routes::api::remove::remove)
             .service(routes::embed::embed)
             // WEB
