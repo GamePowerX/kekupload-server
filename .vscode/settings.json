@@ -1,0 +1,19 @@
+{
+	"fileHeaderComment.parameter": {
+		"*": {
+			"commentbegin": "/*",
+			"commentprefix": "*",
+			"commentend": "*/",
+			"company": "KotwOSS"
+		}
+	},
+	"fileHeaderComment.template": {
+		"*": [
+            "${commentbegin}",
+			"${commentprefix} Created on ${date}",
+			"${commentprefix}",
+			"${commentprefix} Copyright (c) ${year} ${company}",
+            "${commentend}"
+		]
+	}
+}

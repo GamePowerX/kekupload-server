@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 use std::{io::Error, sync::Arc};
 
 use std::collections::HashMap;
@@ -52,11 +58,13 @@ pub async fn main(state: Arc<UploadState>, address: String, port: u16) -> Result
             // CORS
             .wrap(cors)
             // API
-            .service(routes::api::create::create)
-            .service(routes::api::upload::upload)
-            .service(routes::api::finish::finish)
-            .service(routes::api::download::download)
-            .service(routes::api::remove::remove)
+            .service(routes::api::create)
+            .service(routes::api::upload)
+            .service(routes::api::finish)
+            .service(routes::api::download)
+            .service(routes::api::download_chunk)
+            .service(routes::api::length)
+            .service(routes::api::remove)
             .service(routes::embed::embed)
             // WEB
             .service(routes::web::index)

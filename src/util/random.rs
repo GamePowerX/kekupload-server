@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 use rand::Rng;
 
 pub fn random_b64(len: usize) -> String {

@@ -1,3 +1,9 @@
+/*
+* Created on Wed Jun 01 2022
+*
+* Copyright (c) 2022 KotwOSS
+*/
+
 use diesel::{r2d2::ConnectionManager, PgConnection, QueryResult};
 use r2d2::PooledConnection;
 
