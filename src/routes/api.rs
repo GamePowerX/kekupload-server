@@ -1,7 +1,7 @@
 /*
 * Created on Wed Jun 01 2022
 *
-* Copyright (c) 2022 KotwOSS
+* Copyright (c) 2023 KotwOSS
 */
 
 use actix_files::NamedFile;
@@ -65,13 +65,13 @@ pub async fn create(
 }
 
 // ANCHOR: upload
-#[post("/api/u/{stream}/{hash}")]
+#[post("/api/u/{stream}")]
 pub async fn upload(
-    path: web::Path<(String, String)>,
+    path: web::Path<(String,)>,
     state: web::Data<Arc<UploadState>>,
     mut payload: web::Payload,
 ) -> Result<impl Responder> {
-    let (stream, hash) = path.into_inner();
+    let (stream,) = path.into_inner();
 
     let map = &mut state.map.lock().await;
 
@@ -84,14 +84,6 @@ pub async fn upload(
                 return Err(crate::error!(OVERFLOW, CHUNK, "Chunk size exceeded").into());
             }
             body.extend_from_slice(&chunk);
-        }
-
-        let mut sh = Sha1::new();
-        sh.update(&body);
-        let chunk_hash = hex::encode(sh.finalize());
-
-        if !chunk_hash.eq(&hash) {
-            return Err(crate::error!(HASH_MATCH, HASH, "Hash doesn't match").into());
         }
 
         entry.hasher.update(&body);
