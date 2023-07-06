@@ -18,7 +18,7 @@ A backend providing a HTTP REST like interface for uploading files written in [r
 
 <br>
 
-[API Documentation](https://oss.kotw.dev/kekupload-server/docs/api/)
+[API Documentation](https://gamepowerx.com/kekupload-server/docs/api/)
 
 <br>
 
