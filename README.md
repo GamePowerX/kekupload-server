@@ -8,11 +8,11 @@
 kekupload-server
 ```
 
-![](https://tokei.rs/b1/github/KotwOSS/kekupload-server)
-![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=blanks)
-![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=code)
-![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=comments)
-![](https://tokei.rs/b1/github/KotwOSS/kekupload-server?category=files)
+![](https://tokei.rs/b1/github/GamePowerX/kekupload-server)
+![](https://tokei.rs/b1/github/GamePowerX/kekupload-server?category=blanks)
+![](https://tokei.rs/b1/github/GamePowerX/kekupload-server?category=code)
+![](https://tokei.rs/b1/github/GamePowerX/kekupload-server?category=comments)
+![](https://tokei.rs/b1/github/GamePowerX/kekupload-server?category=files)
 
 A backend providing a HTTP REST like interface for uploading files written in [rust](https://www.rust-lang.org/).
 
@@ -37,18 +37,18 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 <br>
 
 ## Clients
-- [kekupload-client client (svelte)](https://github.com/KotwOSS/kekupload-client)
+- [kekupload-client client (svelte)](https://github.com/GamePowerX/kekupload-client)
 - [KekUploadCLIClient (C#)](https://github.com/CraftingDragon007/KekUploadCLIClient)
 
 <br>
 
 ## Libraries
-- [kekupload-lib-ts (typescript)](https://github.com/KotwOSS/kekupload-lib-ts)
+- [kekupload-lib-ts (typescript)](https://github.com/GamePowerX/kekupload-lib-ts)
 - [KekUploadLibrary (C#)](https://github.com/CraftingDragon007/KekUploadLibrary)
 
 <br>
 
-You have created your own client/library for [kekupload-server](https://oss.kotw.dev/kekupload-server)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+You have created your own client/library for [kekupload-server](https://gamepowerx.com/kekupload-server)? Great! Just submit an client request in the issues tab of github or write us an email at [info@gamepowerx.com](mailto:info@gamepowerx.com).
 
 <hr>
 <br>
@@ -56,7 +56,7 @@ You have created your own client/library for [kekupload-server](https://oss.kotw
 ## Usage
 
 ### Docker
-Get a prebuilt image [here](https://github.com/KotwOSS/uploadserver/pkgs/container/uploadserver)
+Get a prebuilt image [here](https://github.com/GamePowerX/kekupload-server/pkgs/container/uploadserver)
 
 <br>
 
@@ -128,4 +128,4 @@ If you have aditional ideas how to make this tool better please create a feature
 <br>
 
 ## Contributing
-More information [here](https://oss.kotw.dev/kekupload-server/CONTRIBUTE).
+More information [here](https://gamepowerx.com/kekupload-server/CONTRIBUTE).
