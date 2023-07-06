@@ -34,7 +34,7 @@ This project is licensed under the [Mit License](https://mit-license.org/)
 
 <br>
 
-You have created your own client for [KekUpload server](https://oss.kotw.dev/kekupload-server)? Great! Just submit an client request in the issues tab of github or write me an email at [kekontheworld@gmail.com](mailto:kekontheworld@gmail.com).
+You have created your own client for [KekUpload server](https://gamepowerx.com/kekupload-server)? Great! Just submit an client request in the issues tab of github or write us an email at [info@gamepowerx.com](mailto:info@gamepowerx.com).
 
 <hr>
 <br>
@@ -114,4 +114,4 @@ If you have aditional ideas how to make this tool better please create a feature
 <br>
 
 ## Contributing
-More information [here](https://oss.kotw.dev/kekupload-server/CONTRIBUTE).
+More information [here](https://gamepowerx.com/kekupload-server/CONTRIBUTE).
