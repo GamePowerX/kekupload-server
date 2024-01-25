@@ -1,7 +1,7 @@
 /*
 * Created on Wed Jun 01 2022
 *
-* Copyright (c) 2023 KotwOSS
+* Copyright (c) 2024 GamePowerX
 */
 
 use actix_files::NamedFile;
@@ -147,7 +147,7 @@ pub async fn finish(
 
             let id = random::random_b64(config::FILE_ID_LENGTH);
 
-            let db_connection = &checker::get_con(&state.pool)?;
+            let db_connection = &mut checker::get_con(&state.pool).unwrap();
 
             let new_file = file::File {
                 id: id.clone(),
@@ -174,10 +174,10 @@ pub async fn download(
 ) -> Result<impl Responder> {
     let id = path.into_inner().0;
 
-    let db_connection = &checker::get_con(&state.pool)?;
+    let db_connection = &mut checker::get_con(&state.pool)?;
 
     if let Some(entry) = map_qres(
-        file::File::find(id, &db_connection),
+        file::File::find(id, db_connection),
         "Error while selecting files",
     )?
     .into_iter()
@@ -207,10 +207,10 @@ pub async fn download_chunk(
 ) -> Result<impl Responder> {
     let (id, offset, size) = path.into_inner();
 
-    let db_connection = &checker::get_con(&state.pool)?;
+    let db_connection = &mut checker::get_con(&state.pool)?;
 
     if let Some(entry) = map_qres(
-        file::File::find(id, &db_connection),
+        file::File::find(id, db_connection),
         "Error while selecting files",
     )?
     .into_iter()
@@ -259,10 +259,10 @@ pub async fn length(
 ) -> Result<impl Responder> {
     let id = path.into_inner().0;
 
-    let db_connection = &checker::get_con(&state.pool)?;
+    let db_connection = &mut checker::get_con(&state.pool)?;
 
     if let Some(entry) = map_qres(
-        file::File::find(id, &db_connection),
+        file::File::find(id, db_connection),
         "Error while selecting files",
     )?
     .into_iter()

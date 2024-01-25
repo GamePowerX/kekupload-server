@@ -1,7 +1,7 @@
 /*
 * Created on Wed Jun 01 2022
 *
-* Copyright (c) 2022 KotwOSS
+* Copyright (c) 2024 GamePowerX
 */
 
 #[macro_use]
@@ -11,6 +11,7 @@ extern crate diesel;
 extern crate serde_json;
 
 extern crate dotenv;
+extern crate r2d2;
 
 use std::collections::HashMap;
 use std::fs;

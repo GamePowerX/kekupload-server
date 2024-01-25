@@ -5,3 +5,4 @@ upload/
 Cargo.lock
 uploadserver.wiki/
 /web/
+.idea/

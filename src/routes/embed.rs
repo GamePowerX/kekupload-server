@@ -1,7 +1,7 @@
 /*
 * Created on Wed Jun 01 2022
 *
-* Copyright (c) 2022 KotwOSS
+* Copyright (c) 2024 GamePowerX
 */
 
 use std::sync::Arc;
@@ -23,10 +23,10 @@ pub async fn embed(
 ) -> Result<impl Responder> {
     let id = path.into_inner().0;
 
-    let db_connection = &checker::get_con(&state.pool)?;
+    let db_connection = &mut checker::get_con(&state.pool)?;
 
     if let Some(entry) = map_qres(
-        file::File::find(id, &db_connection),
+        file::File::find(id, db_connection),
         "Error while selecting files",
     )?
     .into_iter()

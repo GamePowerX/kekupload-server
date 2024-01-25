@@ -1,7 +1,7 @@
 /*
 * Created on Wed Jun 01 2022
 *
-* Copyright (c) 2022 KotwOSS
+* Copyright (c) 2024 GamePowerX
 */
 
 pub const RED: &'static str = "\x1B[38;2;255;0;0m";
